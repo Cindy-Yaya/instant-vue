@@ -164,12 +164,12 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { register } from '@/apis/auth';
-import { InitialProfile, ProfileType } from '@/apis/types';
-import dayjs from 'dayjs';
-import { ElForm, ElInput } from 'element-plus';
-import { nextTick, ref, reactive } from 'vue';
-const inputValue = ref('');
+import { register } from "@/apis/auth";
+import { InitialProfile, ProfileType } from "@/apis/types";
+import dayjs from "dayjs";
+import { ElForm, ElInput } from "element-plus";
+import { nextTick, ref, reactive } from "vue";
+const inputValue = ref("");
 const inputVisible = ref(false);
 const InputRef = ref<InstanceType<typeof ElInput>>();
 const FormRef = ref<InstanceType<typeof ElForm>>();
@@ -179,12 +179,12 @@ const vPassword = (
   value: string,
   callback: (err?: Error) => void
 ) => {
-  if (value === '') {
-    callback(new Error('Password is required'));
+  if (value === "") {
+    callback(new Error("Password is required"));
   } else {
-    if (form.Password !== '') {
+    if (form.Password !== "") {
       if (!FormRef.value) return;
-      FormRef.value.validateField('Password', () => null);
+      FormRef.value.validateField("Password", () => null);
     }
     callback();
   }
@@ -194,27 +194,27 @@ const vConfirmPassword = (
   value: string,
   callback: (err?: Error) => void
 ) => {
-  if (value === '') {
-    callback(new Error('Confirm Password is required'));
+  if (value === "") {
+    callback(new Error("Confirm Password is required"));
   } else if (value !== form.Password) {
-    callback(new Error('It does not match your Password!'));
+    callback(new Error("It does not match your Password!"));
   } else {
     callback();
   }
 };
 const rules = reactive({
   MailBox: [
-    { required: true, message: 'Email Address is required', trigger: 'blur' },
+    { required: true, message: "Email Address is required", trigger: "blur" },
   ],
   Phone: [
-    { required: true, message: 'Phone Number is required', trigger: 'blur' },
+    { required: true, message: "Phone Number is required", trigger: "blur" },
   ],
-  Password: [{ required: true, validator: vPassword, trigger: 'blur' }],
+  Password: [{ required: true, validator: vPassword, trigger: "blur" }],
   ConfirmPassword: [
-    { required: true, validator: vConfirmPassword, trigger: 'blur' },
+    { required: true, validator: vConfirmPassword, trigger: "blur" },
   ],
   Username: [
-    { required: true, message: 'Username is required', trigger: 'blur' },
+    { required: true, message: "Username is required", trigger: "blur" },
   ],
   // Gender: [{ trigger: 'blur' }],
   // Zone: [{ trigger: 'blur' }],
@@ -242,7 +242,7 @@ const handleInputConfirm = () => {
     form.Tag.push(inputValue.value);
   }
   inputVisible.value = false;
-  inputValue.value = '';
+  inputValue.value = "";
 };
 </script>
 <style scoped lang="scss">

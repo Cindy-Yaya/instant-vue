@@ -10,9 +10,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
-import { defineProps } from 'vue';
-import { getFriends, addFriend, removeFriend } from '@/apis/friend';
+import { ElMessage } from "element-plus";
+import { defineProps } from "vue";
+import { getFriends, addFriend, removeFriend } from "@/apis/friend";
 const props = defineProps({
   avatar: Number,
   name: String,

@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import router from '@/router';
-import { ElMessage } from 'element-plus';
-import { defineProps, ref } from 'vue';
+import router from "@/router";
+import { ElMessage } from "element-plus";
+import { defineProps, ref } from "vue";
 const props = defineProps({
   userName: String,
   avatar: String,
@@ -22,14 +22,14 @@ const props = defineProps({
   token: String,
   getInstants: Function,
 });
-const content = ref('');
+const content = ref("");
 const placeholder = `What's on your mind, ${props.userName}?`;
 const post = async () => {
-  await fetch('http://localhost:8081/instant/post', {
-    method: 'POST',
+  await fetch("http://localhost:8081/instant/post", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authentication: props.token ? props.token : '',
+      "Content-Type": "application/json",
+      Authentication: props.token ? props.token : "",
     },
     body: JSON.stringify({
       UserID: props.userID,

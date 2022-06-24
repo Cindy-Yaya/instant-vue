@@ -17,8 +17,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Dayjs } from 'dayjs';
-import { defineProps } from 'vue';
+import { Dayjs } from "dayjs";
+import { defineProps } from "vue";
 const props = defineProps({
   msg: String,
   avatar: Number,
@@ -56,7 +56,7 @@ const props = defineProps({
     left: 100%;
     top: 12%;
     border: solid transparent;
-    content: ' ';
+    content: " ";
     height: 0;
     width: 0;
     position: absolute;

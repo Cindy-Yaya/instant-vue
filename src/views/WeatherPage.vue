@@ -82,7 +82,7 @@
                 <i class="icon" :class="`qi-${item.icon}`" />
               </div>
               <div class="title">{{ item.temp }}°</div>
-              <div class="subtitle">{{ dayjs(item.fxTime).format('h A') }}</div>
+              <div class="subtitle">{{ dayjs(item.fxTime).format("h A") }}</div>
             </div>
           </div>
           <div class="week-container">
@@ -95,7 +95,7 @@
                 <i class="icon" :class="`qi-${item.iconDay}`" />
               </div>
               <div class="text-container">
-                <div class="title">{{ dayjs(item.fxDate).format('dddd') }}</div>
+                <div class="title">{{ dayjs(item.fxDate).format("dddd") }}</div>
                 <div class="subtitle">{{ item.textDay }}</div>
               </div>
               <div class="temp-container">
@@ -116,19 +116,19 @@ import {
   WeatherDailyType,
   WeatherHourlyType,
   WeatherNowType,
-} from '@/apis/types';
+} from "@/apis/types";
 import {
   getWeatherOfNow,
   getWeatherOfToday,
   getWeatherOfWeek,
-} from '@/apis/weather';
-import MainHeader from '@/components/MainHeader.vue';
-import dayjs from 'dayjs';
-import { ref, onMounted } from 'vue';
+} from "@/apis/weather";
+import MainHeader from "@/components/MainHeader.vue";
+import dayjs from "dayjs";
+import { ref, onMounted } from "vue";
 const weatherNowData = ref<WeatherNowType>(InitialWeatherNow);
 const weatherTodayData = ref<WeatherHourlyType[]>([]);
 const weatherWeekData = ref<WeatherDailyType[]>([]);
-const InitialLocation = '101020100';
+const InitialLocation = "101020100";
 const loadWeatherOfNow = (location: string) => {
   getWeatherOfNow(location).then((res) => {
     weatherNowData.value = res;

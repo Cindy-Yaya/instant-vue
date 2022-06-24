@@ -113,11 +113,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref } from 'vue';
-import InstantBlock from '@/components/InstantBlock.vue'; // @ is an alias to /src
-import MyBlock from '@/components/MyBlock.vue';
-import MainHeader from '@/components/MainHeader.vue';
-import { getInstants, InstantType } from '@/apis/instant';
+import { onMounted, onUnmounted, reactive, ref } from "vue";
+import InstantBlock from "@/components/InstantBlock.vue"; // @ is an alias to /src
+import MyBlock from "@/components/MyBlock.vue";
+import MainHeader from "@/components/MainHeader.vue";
+import { getInstants, InstantType } from "@/apis/instant";
 const index = ref(0);
 let instantData = reactive<InstantType[]>([]);
 const loadInstants = (index: number) => {
@@ -135,11 +135,11 @@ const loadMore = () => {
   }
 };
 onMounted(() => {
-  window.addEventListener('scroll', loadMore);
+  window.addEventListener("scroll", loadMore);
   loadInstants(0);
 });
 onUnmounted(() => {
-  window.removeEventListener('scroll', loadMore);
+  window.removeEventListener("scroll", loadMore);
 });
 </script>
 

@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import { ElMessage } from 'element-plus';
+import dayjs from "dayjs";
+import { ElMessage } from "element-plus";
 import {
   InitialWeatherDaily,
   InitialWeatherHour,
@@ -7,9 +7,9 @@ import {
   WeatherDailyType,
   WeatherHourlyType,
   WeatherNowType,
-} from './types';
+} from "./types";
 
-const key = '8617f107601d44fab3565012a155b6bc';
+const key = "8617f107601d44fab3565012a155b6bc";
 
 export const lookupLocation = async (location: string): Promise<any> => {
   let weatherData;
@@ -35,7 +35,7 @@ export const getWeatherOfNow = async (
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
-      if (res.code === '200') {
+      if (res.code === "200") {
         weatherData.cloud = res.now.cloud;
         weatherData.dew = res.now.dew;
         weatherData.feelsLike = res.now.feelsLike;
@@ -67,7 +67,7 @@ export const getWeatherOfToday = async (
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
-      if (res.code === '200') {
+      if (res.code === "200") {
         weatherData = res.hourly;
       }
     })
@@ -85,7 +85,7 @@ export const getWeatherOfWeek = async (
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
-      if (res.code === '200') {
+      if (res.code === "200") {
         weatherData = res.daily;
       }
     })

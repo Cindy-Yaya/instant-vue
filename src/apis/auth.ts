@@ -1,11 +1,11 @@
-import dayjs, { Dayjs } from 'dayjs';
-import { ProfileType } from './types';
+import dayjs, { Dayjs } from "dayjs";
+import { ProfileType } from "./types";
 
 export const register = async (form: ProfileType) => {
-  await fetch('http://localhost:8081/auth/register', {
-    method: 'POST',
+  await fetch("http://localhost:8081/auth/register", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       MailBox: form.MailBox,

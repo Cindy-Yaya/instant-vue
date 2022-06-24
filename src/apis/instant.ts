@@ -1,7 +1,7 @@
-import router from '@/router';
-import { ElMessage } from 'element-plus';
-import { token, userid } from '@/store';
-import dayjs from 'dayjs';
+import router from "@/router";
+import { ElMessage } from "element-plus";
+import { token, userid } from "@/store";
+import dayjs from "dayjs";
 
 export type InstantType = {
   insid: number;
@@ -12,10 +12,10 @@ export type InstantType = {
 
 export const getInstants = async (index: number): Promise<InstantType[]> => {
   const instantData: InstantType[] = [];
-  await fetch('http://localhost:8081/instant/get', {
-    method: 'POST',
+  await fetch("http://localhost:8081/instant/get", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -53,10 +53,10 @@ export const updateInstant = async (
   insid: number | undefined,
   input: string
 ) => {
-  await fetch('http://localhost:8081/instant/update', {
-    method: 'POST',
+  await fetch("http://localhost:8081/instant/update", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -71,10 +71,10 @@ export const updateInstant = async (
     });
 };
 export const likeInstant = async (insid: number | undefined) => {
-  await fetch('http://localhost:8081/instant/like', {
-    method: 'POST',
+  await fetch("http://localhost:8081/instant/like", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -88,10 +88,10 @@ export const likeInstant = async (insid: number | undefined) => {
     });
 };
 export const getComments = async (insid: number | undefined) => {
-  await fetch('http://localhost:8081/comment/get', {
-    method: 'POST',
+  await fetch("http://localhost:8081/comment/get", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -107,10 +107,10 @@ export const getComments = async (insid: number | undefined) => {
     });
 };
 export const sendComment = async (insid: number | undefined, input: string) => {
-  await fetch('http://localhost:8081/comment/post', {
-    method: 'POST',
+  await fetch("http://localhost:8081/comment/post", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -131,10 +131,10 @@ export const shareInstant = async (
   input: string,
   refOriginID: number | undefined
 ) => {
-  await fetch('http://localhost:8081/instant/share', {
-    method: 'POST',
+  await fetch("http://localhost:8081/instant/share", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({

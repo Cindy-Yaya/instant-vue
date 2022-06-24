@@ -35,12 +35,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue';
-import router from '@/router';
-import dayjs from 'dayjs';
-import MainHeader from '@/components/MainHeader.vue';
-import MsgBlock from '@/components/MsgBlock.vue';
-import { token, userid } from '@/store';
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from "vue";
+import router from "@/router";
+import dayjs from "dayjs";
+import MainHeader from "@/components/MainHeader.vue";
+import MsgBlock from "@/components/MsgBlock.vue";
+import { token, userid } from "@/store";
 type MsgType = {
   content: string;
   fromself: boolean;
@@ -52,13 +52,13 @@ const chatContainer = ref<HTMLDivElement | null>(null);
 let msgList = reactive<MsgType[]>([]);
 const count = ref(0);
 const avatar = ref(0);
-const msgInput = ref('');
-let socket = new WebSocket('ws://localhost:8081/chat/echo');
+const msgInput = ref("");
+let socket = new WebSocket("ws://localhost:8081/chat/echo");
 const onSocketOpen = () => {
-  console.log('Socket Opens');
+  console.log("Socket Opens");
 };
 const onSocketError = () => {
-  console.log('Socket Error');
+  console.log("Socket Error");
 };
 const onSockeMessage = (event: unknown) => {
   const e = event as { data: string; timestamp: number };
@@ -69,7 +69,7 @@ const onSockeMessage = (event: unknown) => {
       for (let i = msgList.length - 1; i >= 0; i--) {
         if (msgList[i].localmsgseq === temp.localmsgseq) {
           msgList[i].state = 1;
-          msgList[i].time = dayjs(e.timestamp).format('MMM D, h:mm A');
+          msgList[i].time = dayjs(e.timestamp).format("MMM D, h:mm A");
         }
       }
       break;
@@ -77,7 +77,7 @@ const onSockeMessage = (event: unknown) => {
       msgList.push({
         content: temp.content,
         fromself: false,
-        time: dayjs(e.timestamp).format('MMM D, h:mm A'),
+        time: dayjs(e.timestamp).format("MMM D, h:mm A"),
         localmsgseq: count.value,
         state: 0,
       });
@@ -87,13 +87,13 @@ const onSockeMessage = (event: unknown) => {
   }
 };
 const onSocketClose = () => {
-  console.log('Socket Closes');
+  console.log("Socket Closes");
 };
 const sendMsg = () => {
   msgList.push({
     content: msgInput.value,
     fromself: true,
-    time: dayjs().format('MMM D, h:mm A'),
+    time: dayjs().format("MMM D, h:mm A"),
     localmsgseq: count.value,
     state: 0,
   });
@@ -116,16 +116,16 @@ const scrollToButtom = () => {
   }
 };
 onMounted(() => {
-  socket.addEventListener('open', onSocketOpen);
-  socket.addEventListener('error', onSocketError);
-  socket.addEventListener('message', onSockeMessage);
-  socket.addEventListener('close', onSocketClose);
+  socket.addEventListener("open", onSocketOpen);
+  socket.addEventListener("error", onSocketError);
+  socket.addEventListener("message", onSockeMessage);
+  socket.addEventListener("close", onSocketClose);
 });
 onUnmounted(() => {
-  socket.removeEventListener('open', onSocketOpen);
-  socket.removeEventListener('error', onSocketError);
-  socket.removeEventListener('message', onSockeMessage);
-  socket.removeEventListener('close', onSocketClose);
+  socket.removeEventListener("open", onSocketOpen);
+  socket.removeEventListener("error", onSocketError);
+  socket.removeEventListener("message", onSockeMessage);
+  socket.removeEventListener("close", onSocketClose);
 });
 </script>
 

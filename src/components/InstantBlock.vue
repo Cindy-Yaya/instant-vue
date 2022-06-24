@@ -125,15 +125,15 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
-import { defineProps, reactive } from 'vue';
+import { ElMessage } from "element-plus";
+import { defineProps, reactive } from "vue";
 import {
   likeInstant,
   getComments,
   sendComment,
   shareInstant,
   updateInstant,
-} from '@/apis/instant';
+} from "@/apis/instant";
 const props = defineProps({
   insid: Number,
   userName: String,
@@ -157,9 +157,9 @@ type InstantType = {
   shares: string[];
 };
 const data = reactive<InstantType>({
-  shareInput: '',
-  commentInput: '',
-  editInstant: '',
+  shareInput: "",
+  commentInput: "",
+  editInstant: "",
   showEditDialog: false,
   showShareDialog: false,
   showComments: false,
@@ -264,7 +264,7 @@ let sharesList = `Evan, Yaya and 7 more...`;
   }
 }
 .bgIcon {
-  background-image: url('../assets/img/icons/background-icons.png');
+  background-image: url("../assets/img/icons/background-icons.png");
   background-size: 25px 571px;
   width: 18px;
   height: 18px;

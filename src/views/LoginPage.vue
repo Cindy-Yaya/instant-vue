@@ -49,42 +49,42 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import router from '@/router';
-import { ElForm } from 'element-plus';
-import { reactive, ref } from 'vue';
+import router from "@/router";
+import { ElForm } from "element-plus";
+import { reactive, ref } from "vue";
 const FormRef = ref<InstanceType<typeof ElForm>>();
 const form = reactive({
-  Account: '',
-  Password: '',
+  Account: "",
+  Password: "",
 });
 const login = async () => {
-  await fetch('http://localhost:8081/auth/getToken', {
-    method: 'POST',
+  await fetch("http://localhost:8081/auth/getToken", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      MailBox: 'example@example.com',
-      Password: '1234567890',
+      MailBox: "example@example.com",
+      Password: "1234567890",
     }),
   })
     .then((res) => res.json())
     .then((res) => {
-      localStorage.setItem('userid', res.userid);
-      localStorage.setItem('token', res.token);
-      router.replace({ path: '/' });
+      localStorage.setItem("userid", res.userid);
+      localStorage.setItem("token", res.token);
+      router.replace({ path: "/" });
     });
 };
 const rules = reactive({
   Account: [
     {
       required: true,
-      message: 'Email Address or Phone Number is required',
-      trigger: 'blur',
+      message: "Email Address or Phone Number is required",
+      trigger: "blur",
     },
   ],
   Password: [
-    { required: true, message: 'Password is required', trigger: 'blur' },
+    { required: true, message: "Password is required", trigger: "blur" },
   ],
 });
 </script>

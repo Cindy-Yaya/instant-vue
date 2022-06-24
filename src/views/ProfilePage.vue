@@ -33,7 +33,7 @@
               <div class="aside-text">{{ intro }}</div>
               <div class="aside-text" v-if="birthday !== undefined">
                 Born on
-                <span class="bold">{{ birthday.format('MMM D, YYYY') }}</span>
+                <span class="bold">{{ birthday.format("MMM D, YYYY") }}</span>
               </div>
               <div class="aside-text">
                 Working as <span class="bold">{{ job }}</span> at
@@ -45,7 +45,7 @@
               </div>
               <div class="aside-text" v-if="createTime !== undefined">
                 Joined Instant on
-                <span class="bold">{{ createTime.format('MMM D, YYYY') }}</span>
+                <span class="bold">{{ createTime.format("MMM D, YYYY") }}</span>
               </div>
             </div></el-aside
           >
@@ -68,26 +68,26 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import { getInstants, InstantType } from '@/apis/instant';
-import MainHeader from '@/components/MainHeader.vue';
-import MyBlock from '@/components/MyBlock.vue';
-import InstantBlock from '@/components/InstantBlock.vue';
-import { onMounted, onUnmounted, reactive, ref } from 'vue';
-import { getUserInfo } from '@/apis/profile';
-import dayjs, { Dayjs } from 'dayjs';
+import { getInstants, InstantType } from "@/apis/instant";
+import MainHeader from "@/components/MainHeader.vue";
+import MyBlock from "@/components/MyBlock.vue";
+import InstantBlock from "@/components/InstantBlock.vue";
+import { onMounted, onUnmounted, reactive, ref } from "vue";
+import { getUserInfo } from "@/apis/profile";
+import dayjs, { Dayjs } from "dayjs";
 const index = ref(0);
 const instantData = ref<InstantType[]>([]);
 const avatar = ref(0);
 const birthday = ref<Dayjs>();
-const company = ref('');
+const company = ref("");
 const createTime = ref<Dayjs>();
 const gender = ref(2);
-const intro = ref('');
-const job = ref('');
-const school = ref('');
+const intro = ref("");
+const job = ref("");
+const school = ref("");
 const tag = ref<string[]>([]);
-const username = ref('');
-const zone = ref('');
+const username = ref("");
+const zone = ref("");
 const loadInstants = (index: number) => {
   getInstants(index).then((res) => {
     if (res.length) {
@@ -118,12 +118,12 @@ const loadMore = () => {
   }
 };
 onMounted(() => {
-  window.addEventListener('scroll', loadMore);
+  window.addEventListener("scroll", loadMore);
   loadProfile();
   loadInstants(0);
 });
 onUnmounted(() => {
-  window.removeEventListener('scroll', loadMore);
+  window.removeEventListener("scroll", loadMore);
 });
 </script>
 <style scoped lang="scss">

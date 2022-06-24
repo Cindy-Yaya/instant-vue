@@ -1,14 +1,14 @@
-import router from '@/router';
-import { token } from '@/store';
-import dayjs, { Dayjs } from 'dayjs';
-import { ElMessage } from 'element-plus';
-import { InitialProfile, ProfileType } from './types';
+import router from "@/router";
+import { token } from "@/store";
+import dayjs, { Dayjs } from "dayjs";
+import { ElMessage } from "element-plus";
+import { InitialProfile, ProfileType } from "./types";
 export const getUserInfo = async (userid: number): Promise<ProfileType> => {
   const profile: ProfileType = InitialProfile;
-  await fetch('http://localhost:8081/profile/get', {
-    method: 'POST',
+  await fetch("http://localhost:8081/profile/get", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -31,7 +31,7 @@ export const getUserInfo = async (userid: number): Promise<ProfileType> => {
         profile.CreateTime = dayjs(res.data.createtime);
       } else {
         ElMessage.error(`Code: ${res.code}, Session Expired. Please Login.`);
-        router.replace({ path: '/login' });
+        router.replace({ path: "/login" });
       }
     })
     .catch((err) => ElMessage.error(`Get User Profile Error: ${err}`));

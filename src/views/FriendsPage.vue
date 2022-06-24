@@ -75,10 +75,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
-import FriendBlock from '@/components/FriendBlock.vue';
-import MainHeader from '@/components/MainHeader.vue';
-import { FriendType, getFriends } from '@/apis/friend';
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
+import FriendBlock from "@/components/FriendBlock.vue";
+import MainHeader from "@/components/MainHeader.vue";
+import { FriendType, getFriends } from "@/apis/friend";
 const index = ref(0);
 const potentialFriends = ref<FriendType[]>([]);
 const loadMore = () => {
@@ -97,11 +97,11 @@ const loadFriends = (index: number) => {
   });
 };
 onMounted(() => {
-  window.addEventListener('scroll', loadMore);
+  window.addEventListener("scroll", loadMore);
   loadFriends(0);
 });
 onUnmounted(() => {
-  window.removeEventListener('scroll', loadMore);
+  window.removeEventListener("scroll", loadMore);
 });
 </script>
 

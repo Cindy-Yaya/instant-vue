@@ -1,6 +1,6 @@
-import router from '@/router';
-import { token, userid } from '@/store';
-import { ElMessage } from 'element-plus';
+import router from "@/router";
+import { token, userid } from "@/store";
+import { ElMessage } from "element-plus";
 
 export type FriendType = {
   friendID: number;
@@ -10,10 +10,10 @@ export type FriendType = {
 };
 export const getFriends = async (index: number): Promise<FriendType[]> => {
   const friendData: FriendType[] = [];
-  await fetch('http://localhost:8081/friend/potential', {
-    method: 'POST',
+  await fetch("http://localhost:8081/friend/potential", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -38,7 +38,7 @@ export const getFriends = async (index: number): Promise<FriendType[]> => {
                   friendID: item.userid,
                   avatar: item.avatar,
                   name: item.username,
-                  tip: '',
+                  tip: "",
                 });
               }
             );
@@ -46,17 +46,17 @@ export const getFriends = async (index: number): Promise<FriendType[]> => {
         }
       } else {
         ElMessage.error(`Code: ${res.code}, Session Expired. Please Login.`);
-        router.replace({ path: '/login' });
+        router.replace({ path: "/login" });
       }
     })
     .catch((err) => ElMessage.error(`Get Potential Friend Error: ${err}`));
   return friendData;
 };
 export const addFriend = async (friendid: number | undefined) => {
-  await fetch('http://localhost:8081/friend/add', {
-    method: 'POST',
+  await fetch("http://localhost:8081/friend/add", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
@@ -73,10 +73,10 @@ export const addFriend = async (friendid: number | undefined) => {
     .catch((err) => ElMessage.error(`Add Friend Error: ${err}`));
 };
 export const removeFriend = async (friendid: number | undefined) => {
-  await fetch('http://localhost:8081/friend/remove', {
-    method: 'POST',
+  await fetch("http://localhost:8081/friend/remove", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authentication: token.value,
     },
     body: JSON.stringify({
