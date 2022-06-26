@@ -184,7 +184,7 @@ onUnmounted(() => {
   flex-direction: row;
   align-items: center;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgb(0 0 0 / 0.05);
   }
 }
 .iconContainer {

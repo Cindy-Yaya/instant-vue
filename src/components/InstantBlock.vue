@@ -187,7 +187,7 @@ let sharesList = `Evan, Yaya and 7 more...`;
   background: white;
   margin: 12px auto;
   padding: 6px 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
 }
 .headerContainer {
   display: flex;
@@ -267,7 +267,7 @@ let sharesList = `Evan, Yaya and 7 more...`;
   align-items: center;
   border-radius: 6px;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgb(0 0 0 / 0.05);
   }
 }
 .bgIcon {

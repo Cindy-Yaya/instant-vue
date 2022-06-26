@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .ts,.vue src --fix"
+    "lint": "eslint --ext .ts,.vue src --fix && stylelint '**/*.vue' --fix"
   },
   "dependencies": {
     "dayjs": "^1.11.3",
@@ -23,9 +23,14 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^9.1.1",
+    "postcss-html": "^1.4.1",
     "prettier": "^2.6.2",
     "sass": "^1.52.3",
     "sass-loader": "^8.0.2",
+    "stylelint": "^14.9.1",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
     "typescript": "^4.7.4",
     "vite": "^2.9.9",
     "vue-tsc": "^0.34.7"

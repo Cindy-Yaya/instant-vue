@@ -55,7 +55,7 @@ const post = async () => {
   background: white;
   margin: 12px auto;
   padding: 6px 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
 }
 .avatar {
   padding: 12px;

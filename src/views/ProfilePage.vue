@@ -173,10 +173,10 @@ onUnmounted(() => {
   background: linear-gradient(
     to top,
     #ffffff,
-    rgba(255, 255, 255.9),
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0)
+    rgb(255 255 255.9),
+    rgb(255 255 255 / 0.7),
+    rgb(255 255 255 / 0.4),
+    rgb(255 255 255 / 0)
   );
 }
 .cover-blur {

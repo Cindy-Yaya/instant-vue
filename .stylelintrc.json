@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "stylelint-config-recommended-vue/scss",
+    "stylelint-config-prettier-scss"
+  ],
+  "rules": {
+    "color-function-notation":"modern"
+  }
+}
