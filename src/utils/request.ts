@@ -1,5 +1,4 @@
 import router from "@/router";
-import { token, userID } from "@/store";
 import { ElMessage } from "element-plus";
 type MethodType = "GET" | "POST" | "PUT" | "DELETE";
 const BASE_URL = "http://localhost:8081/";
@@ -9,13 +8,14 @@ export const request = async (
   params: any,
   data: any
 ) => {
+  const token = localStorage.getItem("token");
   return fetch(
     `${BASE_URL}${url}${params ? `?${new URLSearchParams(params)}` : ""}`,
     {
       method: method,
       headers: {
         "Content-Type": "application/json",
-        Authentication: token.value,
+        Authentication: token ? token : "",
       },
       body: method !== "GET" ? JSON.stringify(data) : null,
     }

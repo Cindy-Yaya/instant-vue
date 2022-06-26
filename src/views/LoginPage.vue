@@ -1,9 +1,9 @@
 <template>
   <el-container>
     <el-main>
-      <div class="loginContainer">
+      <div class="login-container">
         <div class="title">Instant</div>
-        <div class="formContainer">
+        <div class="form-container">
           <el-form
             ref="FormRef"
             status-icon
@@ -14,7 +14,7 @@
           >
             <el-form-item prop="Account">
               <el-input
-                v-model="form.Account"
+                v-model="form.account"
                 type="text"
                 autocomplete="off"
                 placeholder="Email address or phone number"
@@ -22,22 +22,22 @@
             </el-form-item>
             <el-form-item prop="Password">
               <el-input
-                v-model="form.Password"
+                v-model="form.password"
                 type="password"
                 autocomplete="off"
                 placeholder="Password"
               />
             </el-form-item>
             <el-form-item>
-              <el-button class="formBtn" type="primary" @click="login">
+              <el-button class="form-btn" type="primary" @click="login">
                 Login
               </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button class="formBtn"> Forgotten password? </el-button>
+              <el-button class="form-btn"> Forgotten password? </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button class="formBtn" type="success">
+              <el-button class="form-btn" type="success">
                 Create New Account
               </el-button>
             </el-form-item>
@@ -50,31 +50,22 @@
 </template>
 
 <script setup lang="ts">
+import { getToken } from "@/apis/auth";
 import router from "@/router";
 import { ElForm } from "element-plus";
 import { reactive, ref } from "vue";
 const FormRef = ref<InstanceType<typeof ElForm>>();
 const form = reactive({
-  Account: "",
-  Password: "",
+  account: "",
+  password: "",
 });
-const login = async () => {
-  await fetch("http://localhost:8081/auth/getToken", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      MailBox: "example@example.com",
-      Password: "1234567890",
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      localStorage.setItem("userid", res.userid);
-      localStorage.setItem("token", res.token);
-      router.replace({ path: "/" });
-    });
+const login = () => {
+  getToken(form.account, form.password).then((res) => {
+    if (res?.code === 200) {
+      localStorage.setItem("token", res.data.token);
+      router.push("/");
+    }
+  });
 };
 const rules = reactive({
   Account: [
@@ -91,7 +82,7 @@ const rules = reactive({
 </script>
 
 <style scoped lang="scss">
-.loginContainer {
+.login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,17 +93,17 @@ const rules = reactive({
   color: var(--el-color-primary);
   font-weight: bold;
 }
-.formContainer {
+.form-container {
   padding: 48px 24px 30px 24px;
   border-radius: 12px;
   background: white;
 }
 .form {
-  width: 360px;
+  width: 330px;
   display: flex;
   flex-direction: column;
 }
-.formBtn {
+.form-btn {
   width: 100%;
 }
 </style>

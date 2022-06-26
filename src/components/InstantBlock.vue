@@ -120,7 +120,7 @@
           <el-avatar
             size="small"
             shape="circle"
-            src="/img/icons/default-avatar.jpg"
+            src="/img/icons/avatar-0.jpg"
           />
         </div>
         <div class="commentLine">
