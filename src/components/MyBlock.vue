@@ -2,9 +2,9 @@
   <div class="headerContainer">
     <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
     <el-input
+      v-model="content"
       class="input"
       size="large"
-      v-model="content"
       :placeholder="placeholder"
       @keyup.enter="post"
     />
@@ -14,13 +14,13 @@
 <script setup lang="ts">
 import router from "@/router";
 import { ElMessage } from "element-plus";
-import { defineProps, ref } from "vue";
+import { ref } from "vue";
 const props = defineProps({
-  userName: String,
-  avatar: String,
-  userID: Number,
-  token: String,
-  getInstants: Function,
+  userName: { type: String, default: "" },
+  avatar: { type: String, default: "" },
+  userID: { type: Number, default: 0 },
+  token: { type: String, default: "" },
+  getInstants: { type: Function, default: () => {} },
 });
 const content = ref("");
 const placeholder = `What's on your mind, ${props.userName}?`;

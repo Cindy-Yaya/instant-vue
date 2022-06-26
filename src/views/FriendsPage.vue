@@ -1,9 +1,11 @@
 <template>
   <el-container>
-    <el-header class="header"><MainHeader active="1" /> </el-header>
+    <el-header class="header">
+      <MainHeader active="1" />
+    </el-header>
     <el-container class="contentContainer">
-      <el-aside class="baseContainer hideOnMs" width="auto"
-        ><div class="baseLine">
+      <el-aside class="baseContainer hideOnMs" width="auto">
+        <div class="baseLine">
           <div class="iconContainer">
             <img class="lineIcon" src="/img/icons/find-friends.png" />
           </div>
@@ -56,7 +58,7 @@
             <img class="lineIcon" src="/img/icons/weather.png" />
           </div>
           <div class="lineText">Weather</div>
-        </div></el-aside
+        </div> </el-aside
       ><el-main class="mainContainer">
         <div class="title">People You May Know</div>
         <div class="friendsContainer">
@@ -67,9 +69,11 @@
             :friendid="item.friendID"
             :avatar="item.avatar"
             :tip="item.tip"
-            :getFriends="getFriends"
-          /></div></el-main
-    ></el-container>
+            :get-friends="getFriends"
+          />
+        </div>
+      </el-main>
+    </el-container>
     <el-backtop />
   </el-container>
 </template>

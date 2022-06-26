@@ -1,9 +1,11 @@
 <template>
   <el-container>
-    <el-header class="header"><MainHeader active="2" /> </el-header>
+    <el-header class="header">
+      <MainHeader active="2" />
+    </el-header>
     <el-container class="contentContainer">
-      <el-aside class="baseContainer hideOnMs" width="auto"
-        ><div class="baseLine">
+      <el-aside class="baseContainer hideOnMs" width="auto">
+        <div class="baseLine">
           <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
           <div class="lineText">Yaya and Evan</div>
         </div>
@@ -12,24 +14,26 @@
           <div class="lineText">Evan and Yaya</div>
         </div> </el-aside
       ><el-main class="mainContainer">
-        <div class="chatContainer" ref="chatContainer">
+        <div ref="chatContainer" class="chatContainer">
           <MsgBlock
             v-for="i in msgList"
-            :key="i.localmsgseq"
+            :key="i.localMsgSeq"
             :msg="i.content"
-            :fromself="i.fromself"
+            :from-self="i.fromSelf"
             :time="i.time"
             :state="i.state"
           />
         </div>
         <div class="inputContainer">
           <el-input
+            v-model="msgInput"
             class="msgInput"
             size="large"
-            v-model="msgInput"
             @keyup.enter="sendMsg"
-          /></div></el-main
-    ></el-container>
+          />
+        </div>
+      </el-main>
+    </el-container>
     <el-backtop />
   </el-container>
 </template>
@@ -40,12 +44,12 @@ import router from "@/router";
 import dayjs from "dayjs";
 import MainHeader from "@/components/MainHeader.vue";
 import MsgBlock from "@/components/MsgBlock.vue";
-import { token, userid } from "@/store";
+import { token, userID } from "@/store";
 type MsgType = {
   content: string;
-  fromself: boolean;
+  fromSelf: boolean;
   time: string;
-  localmsgseq: number;
+  localMsgSeq: number;
   state: number;
 };
 const chatContainer = ref<HTMLDivElement | null>(null);
@@ -60,14 +64,14 @@ const onSocketOpen = () => {
 const onSocketError = () => {
   console.log("Socket Error");
 };
-const onSockeMessage = (event: unknown) => {
+const onSocketMessage = (event: unknown) => {
   const e = event as { data: string; timestamp: number };
   const temp = JSON.parse(e.data);
   console.log(temp);
   switch (temp.type) {
     case 0:
       for (let i = msgList.length - 1; i >= 0; i--) {
-        if (msgList[i].localmsgseq === temp.localmsgseq) {
+        if (msgList[i].localMsgSeq === temp.localMsgSeq) {
           msgList[i].state = 1;
           msgList[i].time = dayjs(e.timestamp).format("MMM D, h:mm A");
         }
@@ -76,13 +80,13 @@ const onSockeMessage = (event: unknown) => {
     case 1:
       msgList.push({
         content: temp.content,
-        fromself: false,
+        fromSelf: false,
         time: dayjs(e.timestamp).format("MMM D, h:mm A"),
-        localmsgseq: count.value,
+        localMsgSeq: count.value,
         state: 0,
       });
       count.value += 1;
-      nextTick(scrollToButtom);
+      nextTick(scrollToBottom);
       break;
   }
 };
@@ -92,25 +96,25 @@ const onSocketClose = () => {
 const sendMsg = () => {
   msgList.push({
     content: msgInput.value,
-    fromself: true,
+    fromSelf: true,
     time: dayjs().format("MMM D, h:mm A"),
-    localmsgseq: count.value,
+    localMsgSeq: count.value,
     state: 0,
   });
-  nextTick(scrollToButtom);
+  nextTick(scrollToBottom);
   socket.send(
     JSON.stringify({
       token: token.value,
       localmsgseq: count.value,
       sendtime: dayjs().toISOString(),
-      from: userid.value,
+      from: userID.value,
       group: 0,
       content: msgInput.value,
     })
   );
   count.value += 1;
 };
-const scrollToButtom = () => {
+const scrollToBottom = () => {
   if (chatContainer.value) {
     chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
   }
@@ -118,13 +122,13 @@ const scrollToButtom = () => {
 onMounted(() => {
   socket.addEventListener("open", onSocketOpen);
   socket.addEventListener("error", onSocketError);
-  socket.addEventListener("message", onSockeMessage);
+  socket.addEventListener("message", onSocketMessage);
   socket.addEventListener("close", onSocketClose);
 });
 onUnmounted(() => {
   socket.removeEventListener("open", onSocketOpen);
   socket.removeEventListener("error", onSocketError);
-  socket.removeEventListener("message", onSockeMessage);
+  socket.removeEventListener("message", onSocketMessage);
   socket.removeEventListener("close", onSocketClose);
 });
 </script>

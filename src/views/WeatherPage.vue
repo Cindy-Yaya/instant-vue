@@ -1,9 +1,11 @@
 <template>
   <el-container>
-    <el-header class="header"><MainHeader active="1" /> </el-header>
+    <el-header class="header">
+      <MainHeader active="1" />
+    </el-header>
     <el-container class="contentContainer">
-      <el-aside class="baseContainer hideOnMs" width="auto"
-        ><div class="baseLine">
+      <el-aside class="baseContainer hideOnMs" width="auto">
+        <div class="baseLine">
           <div class="iconContainer">
             <img class="lineIcon" src="/img/icons/find-friends.png" />
           </div>
@@ -56,9 +58,9 @@
             <img class="lineIcon" src="/img/icons/weather.png" />
           </div>
           <div class="lineText">Weather</div>
-        </div></el-aside
-      ><el-main class="main-container"
-        ><div class="weather-container">
+        </div> </el-aside
+      ><el-main class="main-container">
+        <div class="weather-container">
           <div class="title">Weather in Shanghai</div>
           <div class="temp-container">
             <div class="subtitle">{{ weatherNowData.temp }}°</div>
@@ -69,34 +71,42 @@
                 L:
                 {{ weatherWeekData.length ? weatherWeekData[0].tempMin : null }}
               </div>
-              <div class="sub">{{ weatherNowData.text }}</div>
+              <div class="sub">
+                {{ weatherNowData.text }}
+              </div>
             </div>
           </div>
           <div class="hour-container">
             <div
-              class="hour"
               v-for="item in weatherTodayData"
               :key="item.fxTime"
+              class="hour"
             >
               <div class="icon-container">
                 <i class="icon" :class="`qi-${item.icon}`" />
               </div>
               <div class="title">{{ item.temp }}°</div>
-              <div class="subtitle">{{ dayjs(item.fxTime).format("h A") }}</div>
+              <div class="subtitle">
+                {{ dayjs(item.fxTime).format("h A") }}
+              </div>
             </div>
           </div>
           <div class="week-container">
             <div
-              class="week"
               v-for="item in weatherWeekData.slice(1, 7)"
               :key="item.fxDate"
+              class="week"
             >
               <div class="icon-container">
                 <i class="icon" :class="`qi-${item.iconDay}`" />
               </div>
               <div class="text-container">
-                <div class="title">{{ dayjs(item.fxDate).format("dddd") }}</div>
-                <div class="subtitle">{{ item.textDay }}</div>
+                <div class="title">
+                  {{ dayjs(item.fxDate).format("dddd") }}
+                </div>
+                <div class="subtitle">
+                  {{ item.textDay }}
+                </div>
               </div>
               <div class="temp-container">
                 <div class="title">{{ item.tempMax }}°C</div>
@@ -104,12 +114,13 @@
               </div>
             </div>
           </div>
-        </div></el-main
-      ></el-container
-    >
+        </div>
+      </el-main>
+    </el-container>
     <el-backtop />
   </el-container>
 </template>
+
 <script setup lang="ts">
 import {
   InitialWeatherNow,
@@ -150,6 +161,7 @@ onMounted(() => {
   loadWeatherOfWeek(InitialLocation);
 });
 </script>
+
 <style scoped lang="scss">
 .header {
   height: 54px;

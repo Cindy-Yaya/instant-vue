@@ -1,27 +1,31 @@
 <template>
-  <div class="friendContainer">
+  <div class="friend-container">
     <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" />
-    <div class="name">{{ name }}</div>
-    <div class="tip">{{ tip }}</div>
-    <el-button class="btn" type="primary" @click="addFriend(friendid)"
-      >Add Friend</el-button
-    >
-    <el-button class="btn" @click="removeFriend(friendid)">Remove</el-button>
+    <div class="name">
+      {{ name }}
+    </div>
+    <div class="tip">
+      {{ tip }}
+    </div>
+    <el-button class="btn" type="primary" @click="addFriend(friendID)">
+      Add Friend
+    </el-button>
+    <el-button class="btn" @click="removeFriend(friendID)"> Remove </el-button>
   </div>
 </template>
 <script setup lang="ts">
 import { ElMessage } from "element-plus";
-import { defineProps } from "vue";
 import { getFriends, addFriend, removeFriend } from "@/apis/friend";
 const props = defineProps({
-  avatar: Number,
-  name: String,
-  tip: String,
-  friendid: Number,
+  avatar: { type: Number, default: 0 },
+  name: { type: String, default: "" },
+  tip: { type: String, default: "" },
+  friendID: { type: Number, default: 0 },
 });
 </script>
+
 <style scoped lang="scss">
-.friendContainer {
+.friend-container {
   max-width: 250px;
   min-width: 200px;
   background: white;

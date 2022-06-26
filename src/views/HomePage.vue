@@ -1,20 +1,22 @@
 <template>
   <el-container>
-    <el-header class="header"><MainHeader active="0" /> </el-header>
+    <el-header class="header">
+      <MainHeader active="0" />
+    </el-header>
     <el-container class="contentContainer">
-      <el-aside class="baseContainer hideOnMs" width="auto"
-        ><el-container
-          ><el-header
-            ><div class="baseLine">
+      <el-aside class="baseContainer hideOnMs" width="auto">
+        <el-container>
+          <el-header>
+            <div class="baseLine">
               <img
                 class="lineIcon"
                 src="/img/icons/avatar-0.jpg"
                 style="border-radius: 50%"
               />
               <div class="lineText">Evan</div>
-            </div></el-header
-          ><el-main
-            ><div class="baseLine">
+            </div> </el-header
+          ><el-main>
+            <div class="baseLine">
               <div class="iconContainer">
                 <img class="lineIcon" src="/img/icons/find-friends.png" />
               </div>
@@ -67,24 +69,25 @@
                 <img class="lineIcon" src="/img/icons/weather.png" />
               </div>
               <div class="lineText">Weather</div>
-            </div></el-main
-          >
-          <el-footer>Privacy · Terms · ZYChimne @ 2022</el-footer></el-container
-        ></el-aside
+            </div>
+          </el-main>
+          <el-footer>Privacy · Terms · ZYChimne @ 2022</el-footer>
+        </el-container> </el-aside
       ><el-main class="mainContainer">
-        <MyBlock userName="Evan" avatar="0" />
+        <MyBlock user-name="Evan" avatar="0" />
         <InstantBlock
           v-for="i in instantData"
-          :key="i.insid"
-          :insid="i.insid"
-          userName="Evan"
+          :key="i.insID"
+          :ins-i-d="i.insID"
+          user-name="Evan"
           avatar="0"
-          :time="i.createtime.format('MMM D, YYYY')"
+          :time="i.createTime.format('MMM D, YYYY')"
           :text="i.content"
           likes="25"
-          shares="9" /></el-main
-      ><el-aside class="baseContainer hideOnXs" width="auto"
-        ><div class="sectionContainer">
+          shares="9"
+        /> </el-main
+      ><el-aside class="baseContainer hideOnXs" width="auto">
+        <div class="sectionContainer">
           <div class="baseHeader">Contacts</div>
           <div class="baseLine">
             <img
@@ -106,25 +109,35 @@
             <div class="lineText">Evan and Yaya</div>
           </div>
         </div>
-      </el-aside></el-container
-    >
+      </el-aside>
+    </el-container>
     <el-backtop />
   </el-container>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, reactive, ref } from "vue";
-import InstantBlock from "@/components/InstantBlock.vue"; // @ is an alias to /src
+import InstantBlock from "@/components/InstantBlock.vue";
 import MyBlock from "@/components/MyBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import { getInstants, InstantType } from "@/apis/instant";
+import dayjs from "dayjs";
+import { ElMessage } from "element-plus";
 const index = ref(0);
-let instantData = reactive<InstantType[]>([]);
+const instantData = reactive<InstantType[]>([]);
 const loadInstants = (index: number) => {
   getInstants(index).then((res) => {
-    if (res.length) {
-      if (index === 0) instantData.length = 0;
-      res.map((item) => instantData.push(item));
+    console.log(res);
+    if (res?.code === 200) {
+      instantData.length = 0;
+      res.data.forEach((item: any) => {
+        instantData.push({
+          insID: item.insID,
+          createTime: dayjs(item.createTime),
+          updateTime: dayjs(item.updateTime),
+          content: item.content,
+        });
+      });
     }
   });
 };

@@ -5,61 +5,61 @@
         <div class="title">Instant</div>
         <div class="formContainer">
           <el-form
+            ref="FormRef"
             status-icon
             class="form"
             size="large"
             label-width="auto"
             :rules="rules"
             :model="form"
-            ref="FormRef"
           >
             <el-form-item label="E-mail Address" prop="MailBox">
               <el-input
+                v-model="form.MailBox"
                 type="email"
                 autocomplete="off"
                 placeholder="Email address"
-                v-model="form.MailBox"
               />
             </el-form-item>
             <el-form-item label="Phone Number" prop="Phone">
               <el-input
+                v-model="form.Phone"
                 type="tel"
                 autocomplete="off"
                 placeholder="Phone Number"
-                v-model="form.Phone"
               />
             </el-form-item>
             <el-form-item label="Password" prop="Password">
               <el-input
+                v-model="form.Password"
                 type="password"
                 autocomplete="off"
                 placeholder="Password"
-                v-model="form.Password"
               />
             </el-form-item>
             <el-form-item label="Confirm Password" prop="ConfirmPassword">
               <el-input
+                v-model="form.ConfirmPassword"
                 type="password"
                 autocomplete="off"
                 placeholder="Confirm Password"
-                v-model="form.ConfirmPassword"
               />
             </el-form-item>
             <el-form-item label="Username" prop="Username">
               <el-input
+                v-model="form.Username"
                 type="text"
                 autocomplete="off"
                 placeholder="Username"
-                v-model="form.Username"
                 maxlength="15"
                 show-word-limit
               />
             </el-form-item>
             <el-form-item label="Gender" prop="Gender">
               <el-radio-group v-model="form.Gender">
-                <el-radio label="0">Male</el-radio>
-                <el-radio label="1">Female</el-radio>
-                <el-radio label="2">Secret</el-radio>
+                <el-radio label="0"> Male </el-radio>
+                <el-radio label="1"> Female </el-radio>
+                <el-radio label="2"> Secret </el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="Zone" prop="Zone">
@@ -67,48 +67,48 @@
             </el-form-item>
             <el-form-item label="Birthday" prop="Birthday">
               <el-date-picker
-                type="date"
                 v-model="form.Birthday"
+                type="date"
                 placeholder="Birthday"
                 style="width: 100%"
               />
             </el-form-item>
             <el-form-item label="School" prop="School">
               <el-input
+                v-model="form.School"
                 type="text"
                 autocomplete="off"
                 placeholder="School"
-                v-model="form.School"
                 maxlength="32"
                 show-word-limit
               />
             </el-form-item>
             <el-form-item label="Company" prop="Company">
               <el-input
+                v-model="form.Company"
                 type="text"
                 autocomplete="off"
                 placeholder="Company"
-                v-model="form.Company"
                 maxlength="32"
                 show-word-limit
               />
             </el-form-item>
             <el-form-item label="Job" prop="Job">
               <el-input
+                v-model="form.Job"
                 type="text"
                 autocomplete="off"
                 placeholder="Job"
-                v-model="form.Job"
                 maxlength="32"
                 show-word-limit
               />
             </el-form-item>
             <el-form-item label="Introduction" prop="Introduction">
               <el-input
+                v-model="form.Introduction"
                 type="textarea"
                 autocomplete="off"
                 placeholder="Introduction"
-                v-model="form.Introduction"
                 autosize
                 resize="none"
                 maxlength="250"
@@ -135,8 +135,7 @@
                 maxlength="10"
                 @keyup.enter="handleInputConfirm"
                 @blur="handleInputConfirm"
-              >
-              </el-input>
+              />
               <el-button v-else class="tagBtn" @click="showInput">
                 + New Tag
               </el-button>
@@ -147,14 +146,16 @@
                 type="primary"
                 style="flex: 1"
                 @click="register(form)"
-                >Create New Account</el-button
+              >
+                Create New Account </el-button
               ><el-button
                 class="formBtn"
                 type="success"
                 style="flex: 1"
                 @click="backToLogin"
-                >Back to Login</el-button
               >
+                Back to Login
+              </el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -163,6 +164,7 @@
     <el-footer>ZYChimne @ 2022</el-footer>
   </el-container>
 </template>
+
 <script setup lang="ts">
 import { register } from "@/apis/auth";
 import { InitialProfile, ProfileType } from "@/apis/types";
@@ -245,6 +247,7 @@ const handleInputConfirm = () => {
   inputValue.value = "";
 };
 </script>
+
 <style scoped lang="scss">
 .registerContainer {
   display: flex;

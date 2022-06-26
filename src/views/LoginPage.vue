@@ -5,41 +5,41 @@
         <div class="title">Instant</div>
         <div class="formContainer">
           <el-form
+            ref="FormRef"
             status-icon
             class="form"
             size="large"
             :rules="rules"
             :model="form"
-            ref="FormRef"
           >
             <el-form-item prop="Account">
               <el-input
+                v-model="form.Account"
                 type="text"
                 autocomplete="off"
                 placeholder="Email address or phone number"
-                v-model="form.Account"
               />
             </el-form-item>
             <el-form-item prop="Password">
               <el-input
+                v-model="form.Password"
                 type="password"
                 autocomplete="off"
                 placeholder="Password"
-                v-model="form.Password"
               />
             </el-form-item>
             <el-form-item>
-              <el-button class="formBtn" type="primary" @click="login"
-                >Login</el-button
-              >
+              <el-button class="formBtn" type="primary" @click="login">
+                Login
+              </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button class="formBtn">Forgotten password?</el-button>
+              <el-button class="formBtn"> Forgotten password? </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button class="formBtn" type="success"
-                >Create New Account</el-button
-              >
+              <el-button class="formBtn" type="success">
+                Create New Account
+              </el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -48,6 +48,7 @@
     <el-footer>ZYChimne @ 2022</el-footer>
   </el-container>
 </template>
+
 <script setup lang="ts">
 import router from "@/router";
 import { ElForm } from "element-plus";
@@ -88,6 +89,7 @@ const rules = reactive({
   ],
 });
 </script>
+
 <style scoped lang="scss">
 .loginContainer {
   display: flex;

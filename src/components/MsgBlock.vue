@@ -2,29 +2,32 @@
   <div
     class="chatLine"
     :style="{
-      flexDirection: fromself ? 'row' : 'row-reverse',
-      alignSelf: fromself ? 'flex-end' : 'flex-start',
+      flexDirection: fromSelf ? 'row' : 'row-reverse',
+      alignSelf: fromSelf ? 'flex-end' : 'flex-start',
     }"
   >
     <div
       class="msgContainer"
-      :style="{ alignItems: fromself ? 'flex-end' : 'flex-start' }"
+      :style="{ alignItems: fromSelf ? 'flex-end' : 'flex-start' }"
     >
-      <div class="time">{{ time }}</div>
-      <div class="message" :class="fromself ? '' : 'other'">{{ msg }}</div>
+      <div class="time">
+        {{ time }}
+      </div>
+      <div class="message" :class="fromSelf ? '' : 'other'">
+        {{ msg }}
+      </div>
     </div>
     <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
   </div>
 </template>
 <script setup lang="ts">
 import { Dayjs } from "dayjs";
-import { defineProps } from "vue";
 const props = defineProps({
-  msg: String,
-  avatar: Number,
-  fromself: Boolean,
-  time: String,
-  state: Number,
+  msg: { type: String, default: "" },
+  avatar: { type: Number, default: 0 },
+  fromSelf: { type: Boolean, default: false },
+  time: { type: String, default: "" },
+  state: { type: Number, default: 0 },
 });
 </script>
 <style lang="scss">

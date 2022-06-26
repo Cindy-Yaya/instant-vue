@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <el-header class="header"><MainHeader active="0" /></el-header>
+    <el-header class="header">
+      <MainHeader active="0" />
+    </el-header>
     <el-main class="main-container">
       <div class="cover-container">
         <img
@@ -16,22 +18,26 @@
           <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
           <div class="info-container">
             <div class="text-container">
-              <div class="title">{{ username }}</div>
+              <div class="title">
+                {{ username }}
+              </div>
               <div class="subtitle">1 Friend</div>
             </div>
-            <el-button class="profile-btn" type="primary"
-              >Edit Profile</el-button
-            >
+            <el-button class="profile-btn" type="primary">
+              Edit Profile
+            </el-button>
           </div>
         </div>
       </div>
       <div class="content-container">
         <el-container>
-          <el-aside class="aside-wrapper" width="360"
-            ><div class="aside-container">
+          <el-aside class="aside-wrapper" width="360">
+            <div class="aside-container">
               <div class="aside-title">Intro</div>
-              <div class="aside-text">{{ intro }}</div>
-              <div class="aside-text" v-if="birthday !== undefined">
+              <div class="aside-text">
+                {{ intro }}
+              </div>
+              <div v-if="birthday !== undefined" class="aside-text">
                 Born on
                 <span class="bold">{{ birthday.format("MMM D, YYYY") }}</span>
               </div>
@@ -43,30 +49,32 @@
                 Studied at
                 <span class="bold">{{ school }}</span>
               </div>
-              <div class="aside-text" v-if="createTime !== undefined">
+              <div v-if="createTime !== undefined" class="aside-text">
                 Joined Instant on
                 <span class="bold">{{ createTime.format("MMM D, YYYY") }}</span>
               </div>
-            </div></el-aside
-          >
+            </div>
+          </el-aside>
           <el-main>
-            <MyBlock userName="Evan" avatar="0" />
+            <MyBlock user-name="Evan" avatar="0" />
             <InstantBlock
               v-for="i in instantData"
-              :key="i.insid"
-              :insid="i.insid"
-              userName="Evan"
+              :key="i.insID"
+              :insid="i.insID"
+              user-name="Evan"
               avatar="0"
-              :time="i.createtime.format('MMM D, YYYY')"
+              :time="i.createTime.format('MMM D, YYYY')"
               :text="i.content"
               likes="25"
               shares="9"
-          /></el-main>
+            />
+          </el-main>
         </el-container>
       </div>
     </el-main>
   </el-container>
 </template>
+
 <script setup lang="ts">
 import { getInstants, InstantType } from "@/apis/instant";
 import MainHeader from "@/components/MainHeader.vue";
@@ -126,6 +134,7 @@ onUnmounted(() => {
   window.removeEventListener("scroll", loadMore);
 });
 </script>
+
 <style scoped lang="scss">
 .header {
   height: 54px;
