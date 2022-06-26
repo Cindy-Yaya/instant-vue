@@ -125,25 +125,31 @@ import dayjs from "dayjs";
 import { ElMessage } from "element-plus";
 const index = ref(0);
 const instantData = reactive<InstantType[]>([]);
-const loadInstants = (index: number) => {
-  getInstants(index).then((res) => {
+const loadInstants = (i: number) => {
+  getInstants(i).then((res) => {
     console.log(res);
     if (res?.code === 200) {
-      instantData.length = 0;
-      res.data.forEach((item: any) => {
-        instantData.push({
-          insID: item.insID,
-          createTime: dayjs(item.createTime),
-          updateTime: dayjs(item.updateTime),
-          content: item.content,
+      if (i === 0) {
+        instantData.length = 0;
+      }
+      if (res.data.length > 0) {
+        res.data.forEach((item: any) => {
+          instantData.push({
+            insID: item.insID,
+            createTime: dayjs(item.createTime),
+            updateTime: dayjs(item.updateTime),
+            content: item.content,
+          });
         });
-      });
+        index.value += 10;
+      } else {
+        ElMessage.info("No new posts");
+      }
     }
   });
 };
 const loadMore = () => {
   if (window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight) {
-    index.value += 10;
     loadInstants(index.value);
   }
 };
