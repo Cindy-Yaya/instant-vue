@@ -44,7 +44,6 @@ import router from "@/router";
 import dayjs from "dayjs";
 import MainHeader from "@/components/MainHeader.vue";
 import MsgBlock from "@/components/MsgBlock.vue";
-import { token, userID } from "@/store";
 type MsgType = {
   content: string;
   fromSelf: boolean;
@@ -102,12 +101,12 @@ const sendMsg = () => {
     state: 0,
   });
   nextTick(scrollToBottom);
+  const token = localStorage.getItem("token");
   socket.send(
     JSON.stringify({
-      token: token.value,
+      token: token ? token : "",
       localmsgseq: count.value,
       sendtime: dayjs().toISOString(),
-      from: userID.value,
       group: 0,
       content: msgInput.value,
     })
