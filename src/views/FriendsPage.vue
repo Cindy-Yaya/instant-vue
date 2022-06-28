@@ -3,65 +3,12 @@
     <el-header class="header">
       <MainHeader active="1" />
     </el-header>
-    <el-container class="contentContainer">
-      <el-aside class="baseContainer hideOnMs" width="auto">
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/find-friends.png" />
-          </div>
-          <div class="lineText">Find Friends</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/groups.png" />
-          </div>
-          <div class="lineText">Groups</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/memories.png" />
-          </div>
-          <div class="lineText">Memories</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/saved.png" />
-          </div>
-          <div class="lineText">Saved</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/pages.png" />
-          </div>
-          <div class="lineText">Pages</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/events.png" />
-          </div>
-          <div class="lineText">Events</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/most-recent.png" />
-          </div>
-          <div class="lineText">Most Recennt</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/favorites.png" />
-          </div>
-          <div class="lineText">Favorties</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/weather.png" />
-          </div>
-          <div class="lineText">Weather</div>
-        </div> </el-aside
-      ><el-main class="mainContainer">
+    <el-container class="content-container">
+      <el-aside class="base-container hide-on-ms" width="auto"
+        ><SidePanel /></el-aside
+      ><el-main class="main-container">
         <div class="title">People You May Know</div>
-        <div class="friendsContainer">
+        <div class="friends-container">
           <FriendBlock
             v-for="item in potentialFriends"
             :key="item.friendID"
@@ -82,6 +29,7 @@
 import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import FriendBlock from "@/components/FriendBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
+import SidePanel from "@/components/SidePanel.vue";
 import { FriendType, getFriends } from "@/apis/friend";
 const index = ref(0);
 const potentialFriends = ref<FriendType[]>([]);
@@ -114,7 +62,7 @@ onUnmounted(() => {
   height: 54px;
   background-color: #ffffff;
 }
-.baseContainer {
+.base-container {
   min-width: 270px;
   position: sticky;
   height: fit-content;
@@ -123,7 +71,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
 }
-.baseLine {
+.base-line {
   height: 54px;
   margin: 0 6px;
   border-radius: 6px;
@@ -134,7 +82,7 @@ onUnmounted(() => {
     background-color: rgb(0 0 0 / 0.05);
   }
 }
-.iconContainer {
+.icon-container {
   height: 36px;
   width: 36px;
   padding: 6px;
@@ -142,32 +90,22 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
 }
-.lineIcon {
+.line-icon {
   height: 36px;
   width: 36px;
 }
-.lineText {
+.line-text {
   color: #050505;
   font-weight: 500;
   text-indent: 6px;
   font-size: 15px;
-}
-.hideOnMs {
-  @media only screen and (max-width: 992px) {
-    display: none;
-  }
-}
-.hideOnXs {
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
 }
 .title {
   font-size: 20px;
   font-weight: 700;
   padding: 12px;
 }
-.friendsContainer {
+.friends-container {
   display: flex;
   align-items: row;
   flex-wrap: wrap;

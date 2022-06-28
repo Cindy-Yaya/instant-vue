@@ -205,16 +205,6 @@ onMounted(() => {
   text-indent: 6px;
   font-size: 15px;
 }
-.hideOnMs {
-  @media only screen and (max-width: 992px) {
-    display: none;
-  }
-}
-.hideOnXs {
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
-}
 .main-container {
   display: flex;
   flex-direction: row;

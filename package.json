@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .ts,.vue src --fix && stylelint '**/*.vue' --fix"
+    "lint": "eslint --ext .ts,.vue src --fix && stylelint '**/*.vue' --fix",
+    "prettier": "prettier --write ./src"
   },
   "dependencies": {
     "dayjs": "^1.11.3",
@@ -31,8 +32,9 @@
     "stylelint-config-prettier-scss": "^0.0.1",
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-scss": "^4.2.0",
     "typescript": "^4.7.4",
-    "vite": "^2.9.9",
+    "vite": "^3.0.0-beta.4",
     "vue-tsc": "^0.34.7"
   }
 }

@@ -1,4 +1,4 @@
-npx prettier --write ./src
+yarn prettier --write ./src
 git add .
 git commit -m "update"
 git push

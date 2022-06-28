@@ -1,9 +1,9 @@
 <template>
   <el-container>
     <el-main>
-      <div class="registerContainer">
+      <div class="register-container">
         <div class="title">Instant</div>
-        <div class="formContainer">
+        <div class="form-container">
           <el-form
             ref="FormRef"
             status-icon
@@ -130,26 +130,26 @@
                 v-if="inputVisible"
                 ref="InputRef"
                 v-model="inputValue"
-                class="tagInput"
+                class="tag-input"
                 size="default"
                 maxlength="10"
                 @keyup.enter="handleInputConfirm"
                 @blur="handleInputConfirm"
               />
-              <el-button v-else class="tagBtn" @click="showInput">
+              <el-button v-else class="tag-btn" @click="showInput">
                 + New Tag
               </el-button>
             </el-form-item>
             <el-form-item label="Actions">
               <el-button
-                class="formBtn"
+                class="form-btn"
                 type="primary"
                 style="flex: 1"
                 @click="register(form)"
               >
                 Create New Account </el-button
               ><el-button
-                class="formBtn"
+                class="form-btn"
                 type="success"
                 style="flex: 1"
                 @click="backToLogin"
@@ -249,7 +249,7 @@ const handleInputConfirm = () => {
 </script>
 
 <style scoped lang="scss">
-.registerContainer {
+.register-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -260,7 +260,7 @@ const handleInputConfirm = () => {
   color: var(--el-color-primary);
   font-weight: bold;
 }
-.formContainer {
+.form-container {
   padding: 48px 24px 30px 24px;
   border-radius: 12px;
   background: white;
@@ -273,10 +273,10 @@ const handleInputConfirm = () => {
 .tag {
   margin: 3px;
 }
-.tagBtn {
+.tag-btn {
   height: 32px;
 }
-.tagInput {
+.tag-input {
   width: auto;
   height: 32px;
   line-height: 32px;

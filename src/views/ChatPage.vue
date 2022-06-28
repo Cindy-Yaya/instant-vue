@@ -3,7 +3,7 @@
     <el-header class="header">
       <MainHeader active="2" />
     </el-header>
-    <el-container class="contentContainer">
+    <el-container class="content-container">
       <el-aside class="baseContainer hideOnMs" width="auto">
         <div class="baseLine">
           <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
@@ -137,7 +137,7 @@ onUnmounted(() => {
   height: 54px;
   background-color: #ffffff;
 }
-.baseContainer {
+.base-container {
   height: calc(100vh - 78px);
   min-width: 270px;
   position: sticky;
@@ -147,7 +147,7 @@ onUnmounted(() => {
   flex-direction: column;
   border-right: 3px solid var(--el-color-primary);
 }
-.baseLine {
+.base-line {
   height: 54px;
   margin: 0 6px;
   border-radius: 6px;
@@ -164,7 +164,7 @@ onUnmounted(() => {
   object-fit: cover;
   border-radius: 10%;
 }
-.iconContainer {
+.icon-container {
   height: 36px;
   width: 36px;
   padding: 6px;
@@ -172,11 +172,11 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
 }
-.lineIcon {
+.line-icon {
   height: 36px;
   width: 36px;
 }
-.lineText {
+.line-text {
   color: #050505;
   font-weight: 500;
   text-indent: 6px;

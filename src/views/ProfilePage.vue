@@ -83,6 +83,7 @@ import InstantBlock from "@/components/InstantBlock.vue";
 import { onMounted, onUnmounted, reactive, ref } from "vue";
 import { getUserInfo } from "@/apis/profile";
 import dayjs, { Dayjs } from "dayjs";
+import SidePanel from "@/components/SidePanel.vue";
 const index = ref(0);
 const instantData = ref<InstantType[]>([]);
 const avatar = ref(0);
