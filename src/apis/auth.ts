@@ -16,19 +16,19 @@ export const getToken = (account: string, password: string) => {
 };
 export const register = async (form: ProfileType) => {
   return request("auth/register", "POST", null, {
-    MailBox: form.MailBox,
-    Phone: form.Phone,
-    Password: form.Password,
-    Username: form.Username,
-    Gender: form.Gender,
-    Country: 0,
-    Province: 0,
-    City: 0,
-    Birthday: form.Birthday ? form.Birthday : dayjs().toDate(),
-    School: form.School,
-    Company: form.Company,
-    Job: form.Job,
-    Introduction: form.Introduction,
-    Tag: form.Tag,
+    mailBox: form.mailBox,
+    phone: form.phone,
+    password: form.password,
+    username: form.username,
+    gender: form.gender,
+    country: 0,
+    province: 0,
+    city: 0,
+    birthday: form.birthday ? form.birthday : dayjs().toDate(),
+    school: form.school,
+    company: form.company,
+    job: form.job,
+    introduction: form.introduction,
+    tags: form.tags,
   });
 };

@@ -54,7 +54,7 @@
       <div class="btn" @click="likeInstant(insID)">
         <div class="icon-container">
           <i
-            class="bgIcon"
+            class="bg-icon"
             :style="{
               backgroundPosition: isLiked ? '0px -228px' : '0px -247px',
             }"
@@ -65,7 +65,7 @@
       <div class="btn" @click="getComments(insID)">
         <div class="icon-container">
           <i
-            class="bgIcon"
+            class="bg-icon"
             :style="{
               backgroundPosition: '0px -209px',
             }"
@@ -143,7 +143,7 @@ import {
 } from "@/apis/instant";
 import { reactive } from "vue";
 const props = defineProps({
-  insID: { type: Number, default: 0 },
+  insID: { type: String, default: "" },
   userName: { type: String, default: "" },
   avatar: { type: String, default: "" },
   time: { type: String, default: "" },

@@ -1,9 +1,9 @@
 import { request } from "@/utils/request";
 import { Dayjs } from "dayjs";
 export type InstantType = {
-  insID: number;
-  createTime: Dayjs;
-  updateTime: Dayjs;
+  insID: string;
+  created: Dayjs;
+  lastModified: Dayjs;
   content: string;
 };
 export const getInstants = async (index: number) => {
@@ -12,25 +12,25 @@ export const getInstants = async (index: number) => {
 export const postInstant = async (content: string) => {
   return request("instant", "POST", null, { content: content });
 };
-export const updateInstant = async (insID: number, content: string) => {
+export const updateInstant = async (insID: string, content: string) => {
   return request("instant", "PUT", null, {
     InsID: insID,
     content: content,
   });
 };
-export const likeInstant = async (insID: number) => {
+export const likeInstant = async (insID: string) => {
   return request("instant/like", "POST", null, { InsID: insID, Attitude: 0 });
 };
-export const getComments = async (insID: number) => {
+export const getComments = async (insID: string) => {
   return request("comment/get", "GET", { insID: insID }, null);
 };
-export const sendComment = async (insID: number, content: string) => {
+export const sendComment = async (insID: string, content: string) => {
   return request("comment/send", "POST", null, {
     insID: insID,
     content: content,
   });
 };
-export const shareInstant = async (content: string, refOriginID: number) => {
+export const shareInstant = async (content: string, refOriginID: string) => {
   return request("instant/share", "POST", null, {
     content: content,
     refOriginID: refOriginID,

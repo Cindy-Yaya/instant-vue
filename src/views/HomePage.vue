@@ -15,7 +15,7 @@
           :ins-i-d="i.insID"
           user-name="Evan"
           avatar="0"
-          :time="i.createTime.format('MMM D, YYYY')"
+          :time="i.created.format('MMM D, YYYY')"
           :text="i.content"
           likes="25"
           shares="9"
@@ -63,7 +63,7 @@ const instantData = reactive<InstantType[]>([]);
 const loadInstants = (i: number) => {
   getInstants(i).then((res) => {
     console.log(res);
-    if (res?.data === 200) {
+    if (res?.code === 200) {
       if (i === 0) {
         instantData.length = 0;
       }
@@ -71,8 +71,8 @@ const loadInstants = (i: number) => {
         res.data.forEach((item: any) => {
           instantData.push({
             insID: item.insID,
-            createTime: dayjs(item.createTime),
-            updateTime: dayjs(item.updateTime),
+            created: dayjs(item.created),
+            lastModified: dayjs(item.lastModified),
             content: item.content,
           });
         });

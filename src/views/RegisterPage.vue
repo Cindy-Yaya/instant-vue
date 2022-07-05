@@ -13,41 +13,41 @@
             :rules="rules"
             :model="form"
           >
-            <el-form-item label="E-mail Address" prop="MailBox">
+            <el-form-item label="E-mail Address" prop="mailBox">
               <el-input
-                v-model="form.MailBox"
+                v-model="form.mailBox"
                 type="email"
                 autocomplete="off"
                 placeholder="Email address"
               />
             </el-form-item>
-            <el-form-item label="Phone Number" prop="Phone">
+            <el-form-item label="Phone Number" prop="phone">
               <el-input
-                v-model="form.Phone"
+                v-model="form.phone"
                 type="tel"
                 autocomplete="off"
                 placeholder="Phone Number"
               />
             </el-form-item>
-            <el-form-item label="Password" prop="Password">
+            <el-form-item label="Password" prop="password">
               <el-input
-                v-model="form.Password"
+                v-model="form.password"
                 type="password"
                 autocomplete="off"
                 placeholder="Password"
               />
             </el-form-item>
-            <el-form-item label="Confirm Password" prop="ConfirmPassword">
+            <el-form-item label="Confirm Password" prop="confirmPassword">
               <el-input
-                v-model="form.ConfirmPassword"
+                v-model="form.confirmPassword"
                 type="password"
                 autocomplete="off"
                 placeholder="Confirm Password"
               />
             </el-form-item>
-            <el-form-item label="Username" prop="Username">
+            <el-form-item label="Username" prop="username">
               <el-input
-                v-model="form.Username"
+                v-model="form.username"
                 type="text"
                 autocomplete="off"
                 placeholder="Username"
@@ -55,27 +55,27 @@
                 show-word-limit
               />
             </el-form-item>
-            <el-form-item label="Gender" prop="Gender">
-              <el-radio-group v-model="form.Gender">
+            <el-form-item label="Gender" prop="gender">
+              <el-radio-group v-model="form.gender">
                 <el-radio label="0"> Male </el-radio>
                 <el-radio label="1"> Female </el-radio>
                 <el-radio label="2"> Secret </el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="Zone" prop="Zone">
-              <el-cascader v-model="form.Zone" />
+            <el-form-item label="Zone" prop="zone">
+              <el-cascader v-model="form.zone" />
             </el-form-item>
-            <el-form-item label="Birthday" prop="Birthday">
+            <el-form-item label="Birthday" prop="birthday">
               <el-date-picker
-                v-model="form.Birthday"
+                v-model="form.birthday"
                 type="date"
                 placeholder="Birthday"
                 style="width: 100%"
               />
             </el-form-item>
-            <el-form-item label="School" prop="School">
+            <el-form-item label="School" prop="school">
               <el-input
-                v-model="form.School"
+                v-model="form.school"
                 type="text"
                 autocomplete="off"
                 placeholder="School"
@@ -85,7 +85,7 @@
             </el-form-item>
             <el-form-item label="Company" prop="Company">
               <el-input
-                v-model="form.Company"
+                v-model="form.company"
                 type="text"
                 autocomplete="off"
                 placeholder="Company"
@@ -93,9 +93,9 @@
                 show-word-limit
               />
             </el-form-item>
-            <el-form-item label="Job" prop="Job">
+            <el-form-item label="Job" prop="job">
               <el-input
-                v-model="form.Job"
+                v-model="form.job"
                 type="text"
                 autocomplete="off"
                 placeholder="Job"
@@ -103,9 +103,9 @@
                 show-word-limit
               />
             </el-form-item>
-            <el-form-item label="Introduction" prop="Introduction">
+            <el-form-item label="Introduction" prop="introduction">
               <el-input
-                v-model="form.Introduction"
+                v-model="form.introduction"
                 type="textarea"
                 autocomplete="off"
                 placeholder="Introduction"
@@ -117,7 +117,7 @@
             </el-form-item>
             <el-form-item label="Tags" prop="Tag" style="align-items: center">
               <el-tag
-                v-for="tag in form.Tag"
+                v-for="tag in form.tags"
                 :key="tag"
                 class="tag"
                 closable
@@ -145,7 +145,7 @@
                 class="form-btn"
                 type="primary"
                 style="flex: 1"
-                @click="register(form)"
+                @click="createNewAccount"
               >
                 Create New Account </el-button
               ><el-button
@@ -167,16 +167,16 @@
 
 <script setup lang="ts">
 import { register } from "@/apis/auth";
-import { InitialProfile, ProfileType } from "@/apis/types";
+import { getInitialProfile, ProfileType } from "@/apis/types";
 import router from "@/router";
 import dayjs from "dayjs";
-import { ElForm, ElInput } from "element-plus";
+import { ElForm, ElInput, ElMessage } from "element-plus";
 import { nextTick, ref, reactive } from "vue";
 const inputValue = ref("");
 const inputVisible = ref(false);
 const InputRef = ref<InstanceType<typeof ElInput>>();
 const FormRef = ref<InstanceType<typeof ElForm>>();
-const form = reactive<ProfileType>(InitialProfile);
+const form = reactive<ProfileType>(getInitialProfile());
 const vPassword = (
   _rule: unknown,
   value: string,
@@ -185,7 +185,7 @@ const vPassword = (
   if (value === "") {
     callback(new Error("Password is required"));
   } else {
-    if (form.Password !== "") {
+    if (form.password !== "") {
       if (!FormRef.value) return;
       FormRef.value.validateField("Password", () => null);
     }
@@ -199,24 +199,24 @@ const vConfirmPassword = (
 ) => {
   if (value === "") {
     callback(new Error("Confirm Password is required"));
-  } else if (value !== form.Password) {
+  } else if (value !== form.password) {
     callback(new Error("It does not match your Password!"));
   } else {
     callback();
   }
 };
 const rules = reactive({
-  MailBox: [
+  mailBox: [
     { required: true, message: "Email Address is required", trigger: "blur" },
   ],
-  Phone: [
+  phone: [
     { required: true, message: "Phone Number is required", trigger: "blur" },
   ],
-  Password: [{ required: true, validator: vPassword, trigger: "blur" }],
-  ConfirmPassword: [
+  password: [{ required: true, validator: vPassword, trigger: "blur" }],
+  confirmPassword: [
     { required: true, validator: vConfirmPassword, trigger: "blur" },
   ],
-  Username: [
+  username: [
     { required: true, message: "Username is required", trigger: "blur" },
   ],
   // Gender: [{ trigger: 'blur' }],
@@ -228,11 +228,25 @@ const rules = reactive({
   // Introduction: [{ trigger: 'blur' }],
   // Tag: [{ trigger: 'blur' }],
 });
+const createNewAccount = () => {
+  FormRef.value?.validate((valid: boolean) => {
+    if (valid) {
+      register(form).then((res) => {
+        if (res?.code === 201) {
+          ElMessage.success(res.message);
+          nextTick(() => {
+            router.push("/login");
+          });
+        }
+      });
+    }
+  });
+};
 const backToLogin = () => {
   router.push("/login");
 };
 const handleClose = (tag: string) => {
-  form.Tag.splice(form.Tag.indexOf(tag), 1);
+  form.tags.splice(form.tags.indexOf(tag), 1);
 };
 const showInput = () => {
   inputVisible.value = true;
@@ -242,7 +256,7 @@ const showInput = () => {
 };
 const handleInputConfirm = () => {
   if (inputValue.value) {
-    form.Tag.push(inputValue.value);
+    form.tags.push(inputValue.value);
   }
   inputVisible.value = false;
   inputValue.value = "";

@@ -1,39 +1,39 @@
 import dayjs, { Dayjs } from "dayjs";
 
 export type ProfileType = {
-  MailBox: string;
-  Phone: string;
-  Password: string;
-  ConfirmPassword: string;
-  Username: string;
-  Gender: number;
-  Zone: string;
-  Birthday: Date | Dayjs | null;
-  School: string;
-  Company: string;
-  Job: string;
-  Introduction: string;
-  Tag: string[];
-  Avatar: number;
-  CreateTime: Dayjs | null;
+  mailBox: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  username: string;
+  gender: number;
+  zone: string;
+  birthday: Date | Dayjs | null;
+  school: string;
+  company: string;
+  job: string;
+  introduction: string;
+  tags: string[];
+  avatar: number;
 };
 
-export const InitialProfile: ProfileType = {
-  MailBox: "",
-  Phone: "",
-  Password: "",
-  ConfirmPassword: "",
-  Username: "",
-  Gender: 2,
-  Zone: "",
-  Birthday: null,
-  School: "",
-  Company: "",
-  Job: "",
-  Introduction: "",
-  Tag: [],
-  Avatar: 0,
-  CreateTime: null,
+export const getInitialProfile = (): ProfileType => {
+  return {
+    mailBox: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    username: "",
+    gender: 2,
+    zone: "",
+    birthday: null,
+    school: "",
+    company: "",
+    job: "",
+    introduction: "",
+    tags: [],
+    avatar: 0,
+  };
 };
 
 export type WeatherNowType = {
