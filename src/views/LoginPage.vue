@@ -37,7 +37,7 @@
               <el-button class="form-btn"> Forgotten password? </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button class="form-btn" type="success">
+              <el-button class="form-btn" type="success" @click="register">
                 Create New Account
               </el-button>
             </el-form-item>
@@ -66,6 +66,9 @@ const login = () => {
       router.push("/");
     }
   });
+};
+const register = () => {
+  router.push("/register");
 };
 const rules = reactive({
   Account: [

@@ -14,8 +14,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElMessage } from "element-plus";
-import { getFriends, addFriend, removeFriend } from "@/apis/friend";
+import { addFriend, removeFriend } from "@/apis/friend";
 const props = defineProps({
   avatar: { type: Number, default: 0 },
   name: { type: String, default: "" },

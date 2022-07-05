@@ -168,6 +168,7 @@
 <script setup lang="ts">
 import { register } from "@/apis/auth";
 import { InitialProfile, ProfileType } from "@/apis/types";
+import router from "@/router";
 import dayjs from "dayjs";
 import { ElForm, ElInput } from "element-plus";
 import { nextTick, ref, reactive } from "vue";
@@ -228,7 +229,7 @@ const rules = reactive({
   // Tag: [{ trigger: 'blur' }],
 });
 const backToLogin = () => {
-  if (form.Birthday) console.log(form.Birthday.toISOString());
+  router.push("/login");
 };
 const handleClose = (tag: string) => {
   form.Tag.splice(form.Tag.indexOf(tag), 1);

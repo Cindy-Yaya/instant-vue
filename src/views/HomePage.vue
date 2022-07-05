@@ -63,7 +63,7 @@ const instantData = reactive<InstantType[]>([]);
 const loadInstants = (i: number) => {
   getInstants(i).then((res) => {
     console.log(res);
-    if (res?.code === 200) {
+    if (res?.data === 200) {
       if (i === 0) {
         instantData.length = 0;
       }

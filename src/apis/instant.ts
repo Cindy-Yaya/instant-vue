@@ -7,10 +7,13 @@ export type InstantType = {
   content: string;
 };
 export const getInstants = async (index: number) => {
-  return request("instant/get", "GET", { index: index }, null);
+  return request("instant", "GET", { index: index }, null);
+};
+export const postInstant = async (content: string) => {
+  return request("instant", "POST", null, { content: content });
 };
 export const updateInstant = async (insID: number, content: string) => {
-  return request("instant/update", "PUT", null, {
+  return request("instant", "PUT", null, {
     InsID: insID,
     content: content,
   });

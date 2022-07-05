@@ -1,13 +1,13 @@
 <template>
   <div
-    class="chatLine"
+    class="chat-line"
     :style="{
       flexDirection: fromSelf ? 'row' : 'row-reverse',
       alignSelf: fromSelf ? 'flex-end' : 'flex-start',
     }"
   >
     <div
-      class="msgContainer"
+      class="msg-container"
       :style="{ alignItems: fromSelf ? 'flex-end' : 'flex-start' }"
     >
       <div class="time">
@@ -31,12 +31,12 @@ const props = defineProps({
 });
 </script>
 <style lang="scss">
-.chatLine {
+.chat-line {
   max-width: 60%;
   display: flex;
   flex-direction: row;
 }
-.msgContainer {
+.msg-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -75,7 +75,7 @@ const props = defineProps({
     left: 0%;
   }
 }
-.iconContainer {
+.icon-container {
   height: 48px;
   width: 48px;
   padding: 6px;

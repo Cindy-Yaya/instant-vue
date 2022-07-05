@@ -38,6 +38,9 @@ export const request = async (
         case "401": {
           router.push("/login");
         }
+        case "403": {
+          router.push("/login");
+        }
       }
     });
 };

@@ -1,19 +1,18 @@
 <template>
-  <div class="headerContainer">
+  <div class="header-container">
     <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
     <el-input
       v-model="content"
       class="input"
       size="large"
       :placeholder="placeholder"
-      @keyup.enter="post"
+      @keyup.enter="onPost"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import router from "@/router";
-import { ElMessage } from "element-plus";
+import { postInstant } from "@/apis/instant";
 import { ref } from "vue";
 const props = defineProps({
   userName: { type: String, default: "" },
@@ -24,30 +23,13 @@ const props = defineProps({
 });
 const content = ref("");
 const placeholder = `What's on your mind, ${props.userName}?`;
-const post = async () => {
-  await fetch("http://localhost:8081/instant/post", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authentication: props.token ? props.token : "",
-    },
-    body: JSON.stringify({
-      UserID: props.userID,
-      Content: content.value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-      if (res.code === 200) {
-        props.getInstants ? props.getInstants(0) : null;
-      } else ElMessage.error(`Send Instant Failed. Code: ${res.code}`);
-    });
+const onPost = () => {
+  postInstant(content.value);
 };
 </script>
 
 <style scoped lang="scss">
-.headerContainer {
+.header-container {
   display: flex;
   flex-direction: row;
   max-width: 720px;

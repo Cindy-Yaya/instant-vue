@@ -1,17 +1,17 @@
 <template>
-  <div class="instantBlock">
-    <div class="headerContainer">
+  <div class="instant-block">
+    <div class="header-container">
       <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
-      <div class="headerTextContainer">
-        <div class="headerName">
+      <div class="header-text-container">
+        <div class="header-name">
           {{ userName }}
         </div>
-        <div class="headerTime">
+        <div class="header-time">
           {{ time }}
         </div>
       </div>
     </div>
-    <div class="textContainer" @dblclick="data.showEditDialog = true">
+    <div class="text-container" @dblclick="data.showEditDialog = true">
       {{ text }}
     </div>
     <el-dialog v-model="data.showEditDialog">
@@ -27,32 +27,32 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <div class="imgContainer" />
-    <div class="infoContainer">
-      <div class="likesInfo">
-        <div class="iconContainer">
-          <img class="iconImg" src="/img/icons/likes.svg" />
+    <div class="img-container" />
+    <div class="info-container">
+      <div class="likes-info">
+        <div class="icon-container">
+          <img class="icon-img" src="/img/icons/likes.svg" />
         </div>
         <el-tooltip placement="bottom" effect="dark" :content="likesList">
-          <div class="infoText">
+          <div class="info-text">
             {{ isLiked ? `You and ${likes} others` : likes }}
           </div>
         </el-tooltip>
       </div>
-      <div class="sharesInfo">
+      <div class="shares-info">
         <el-tooltip placement="bottom" effect="dark" :content="sharesList">
-          <div class="infoText">{{ shares }} Shares</div>
+          <div class="info-text">{{ shares }} Shares</div>
         </el-tooltip>
       </div>
     </div>
     <div
-      class="btnContainer"
+      class="btn-container"
       :style="{
         borderBottom: data.showComments ? `1px solid #ced0d4` : `none`,
       }"
     >
       <div class="btn" @click="likeInstant(insID)">
-        <div class="iconContainer">
+        <div class="icon-container">
           <i
             class="bgIcon"
             :style="{
@@ -63,7 +63,7 @@
         Like
       </div>
       <div class="btn" @click="getComments(insID)">
-        <div class="iconContainer">
+        <div class="icon-container">
           <i
             class="bgIcon"
             :style="{
@@ -74,9 +74,9 @@
         Comment
       </div>
       <div class="btn" @click="data.showShareDialog = !data.showShareDialog">
-        <div class="iconContainer">
+        <div class="icon-container">
           <i
-            class="bgIcon"
+            class="bg-icon"
             :style="{
               backgroundPosition: '0px -266px',
             }"
@@ -100,8 +100,8 @@
         </el-form>
       </el-dialog>
     </div>
-    <div v-show="data.showComments" class="commentContainer">
-      <div class="commentInputContainer">
+    <div v-show="data.showComments" class="comment-container">
+      <div class="comment-input-container">
         <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" />
         <el-input
           v-model="data.commentInput"
@@ -115,16 +115,16 @@
           Send
         </el-button>
       </div>
-      <div class="commentLineContainer">
-        <div class="iconContainer" style="margin: 12px 6px 6px 12px">
+      <div class="comment-line-container">
+        <div class="icon-container" style="margin: 12px 6px 6px 12px">
           <el-avatar
             size="small"
             shape="circle"
             src="/img/icons/avatar-0.jpg"
           />
         </div>
-        <div class="commentLine">
-          <div class="commentLineText">
+        <div class="comment-line">
+          <div class="comment-line-text">
             {{ data.comments[0] }}
           </div>
         </div>
@@ -132,16 +132,16 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-import { ElMessage } from "element-plus";
-import { reactive } from "vue";
 import {
-  likeInstant,
   getComments,
+  likeInstant,
   sendComment,
   shareInstant,
   updateInstant,
 } from "@/apis/instant";
+import { reactive } from "vue";
 const props = defineProps({
   insID: { type: Number, default: 0 },
   userName: { type: String, default: "" },
@@ -178,8 +178,9 @@ const data = reactive<InstantType>({
 let likesList = `Evan, Yaya and 23 more...`;
 let sharesList = `Evan, Yaya and 7 more...`;
 </script>
+
 <style scoped lang="scss">
-.instantBlock {
+.instant-block {
   max-width: 720px;
   display: flex;
   flex-direction: column;
@@ -189,7 +190,7 @@ let sharesList = `Evan, Yaya and 7 more...`;
   padding: 6px 0;
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
 }
-.headerContainer {
+.header-container {
   display: flex;
   flex-direction: row;
 }
@@ -200,26 +201,26 @@ let sharesList = `Evan, Yaya and 7 more...`;
   border-radius: 50%;
   object-fit: cover;
 }
-.headerTextContainer {
+.header-text-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
-.headerName {
+.header-name {
   font-size: 15px;
   font-weight: bold;
 }
-.headerTime {
+.header-time {
   font-size: 14px;
 }
-.textContainer {
+.text-container {
   margin: 0;
   padding: 12px;
   text-align: left;
   word-wrap: break-word;
 }
-.infoContainer {
+.info-container {
   margin: 0 12px;
   padding: 6px 0;
   display: flex;
@@ -228,31 +229,31 @@ let sharesList = `Evan, Yaya and 7 more...`;
   justify-content: space-between;
   border-bottom: 1px solid #ced0d4;
 }
-.likesInfo {
+.likes-info {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.sharesInfo {
+.shares-info {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.iconContainer {
+.icon-container {
   height: 24px;
   width: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.iconImg {
+.icon-img {
   height: 18px;
   width: 18px;
   aspect-ratio: auto 18 / 18;
 }
-.btnContainer {
+.btn-container {
   margin: 0 12px;
   padding: 6px;
   display: flex;
@@ -270,31 +271,31 @@ let sharesList = `Evan, Yaya and 7 more...`;
     background-color: rgb(0 0 0 / 0.05);
   }
 }
-.bgIcon {
+.bg-icon {
   background-image: url("/img/icons/background-icons.png");
   background-size: 25px 571px;
   width: 18px;
   height: 18px;
   background-repeat: no-repeat;
 }
-.commentInputContainer {
+.comment-input-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 12px;
 }
-.commentLineContainer {
+.comment-line-container {
   display: flex;
   flex-direction: row;
   margin: 0 12px;
 }
-.commentLine {
+.comment-line {
   margin: 6px 12px 12px 6px;
   padding: 12px;
   border-radius: 12px;
   background-color: #f0f2f5;
 }
-.commentLineText {
+.comment-line-text {
   text-align: left;
 }
 </style>
