@@ -17,6 +17,7 @@
           avatar="0"
           :time="i.created.format('MMM D, YYYY')"
           :text="i.content"
+          :load-instants="loadInstants"
           likes="25"
           shares="9"
         /> </el-main

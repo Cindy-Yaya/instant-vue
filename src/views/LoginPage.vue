@@ -5,14 +5,14 @@
         <div class="title">Instant</div>
         <div class="form-container">
           <el-form
-            ref="FormRef"
+            ref="formRef"
             status-icon
             class="form"
             size="large"
             :rules="rules"
             :model="form"
           >
-            <el-form-item prop="Account">
+            <el-form-item prop="account">
               <el-input
                 v-model="form.account"
                 type="text"
@@ -20,7 +20,7 @@
                 placeholder="Email address or phone number"
               />
             </el-form-item>
-            <el-form-item prop="Password">
+            <el-form-item prop="password">
               <el-input
                 v-model="form.password"
                 type="password"
@@ -52,20 +52,28 @@
 <script setup lang="ts">
 import { getToken } from "@/apis/auth";
 import router from "@/router";
-import { ElForm } from "element-plus";
+import { ElForm, ElMessage } from "element-plus";
 import { reactive, ref } from "vue";
-const FormRef = ref<InstanceType<typeof ElForm>>();
+const formRef = ref<InstanceType<typeof ElForm>>();
 const form = reactive({
   account: "",
   password: "",
 });
 const login = () => {
-  getToken(form.account, form.password).then((res) => {
-    if (res?.code === 200) {
-      localStorage.setItem("token", res.data.token);
-      router.push("/");
-    }
-  });
+  if (formRef.value) {
+    formRef.value.validate((valid) => {
+      if (valid) {
+        getToken(form.account, form.password).then((res) => {
+          if (res?.code === 200) {
+            localStorage.setItem("token", res.data);
+            router.push("/");
+          } else {
+            ElMessage.error("Login failed");
+          }
+        });
+      }
+    });
+  }
 };
 const register = () => {
   router.push("/register");

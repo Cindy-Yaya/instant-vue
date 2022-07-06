@@ -14,7 +14,7 @@ export const postInstant = async (content: string) => {
 };
 export const updateInstant = async (insID: string, content: string) => {
   return request("instant", "PUT", null, {
-    InsID: insID,
+    insID: insID,
     content: content,
   });
 };

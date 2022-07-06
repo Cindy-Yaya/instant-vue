@@ -63,8 +63,9 @@
               :insid="i.insID"
               user-name="Evan"
               avatar="0"
-              :time="i.createTime.format('MMM D, YYYY')"
+              :time="i.created.format('MMM D, YYYY')"
               :text="i.content"
+              :load-instants="loadInstants"
               likes="25"
               shares="9"
             />
@@ -77,15 +78,15 @@
 
 <script setup lang="ts">
 import { getInstants, InstantType } from "@/apis/instant";
+import { getUserInfo } from "@/apis/profile";
+import InstantBlock from "@/components/InstantBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import MyBlock from "@/components/MyBlock.vue";
-import InstantBlock from "@/components/InstantBlock.vue";
-import { onMounted, onUnmounted, reactive, ref } from "vue";
-import { getUserInfo } from "@/apis/profile";
 import dayjs, { Dayjs } from "dayjs";
-import SidePanel from "@/components/SidePanel.vue";
+import { ElMessage } from "element-plus";
+import { onMounted, onUnmounted, reactive, ref } from "vue";
 const index = ref(0);
-const instantData = ref<InstantType[]>([]);
+const instantData = reactive<InstantType[]>([]);
 const avatar = ref(0);
 const birthday = ref<Dayjs>();
 const company = ref("");
@@ -97,11 +98,26 @@ const school = ref("");
 const tag = ref<string[]>([]);
 const username = ref("");
 const zone = ref("");
-const loadInstants = (index: number) => {
-  getInstants(index).then((res) => {
-    if (res.length) {
-      if (index === 0) instantData.value.length = 0;
-      res.map((item) => instantData.value.push(item));
+const loadInstants = (i: number) => {
+  getInstants(i).then((res) => {
+    console.log(res);
+    if (res?.code === 200) {
+      if (i === 0) {
+        instantData.length = 0;
+      }
+      if (res.data.length > 0) {
+        res.data.forEach((item: any) => {
+          instantData.push({
+            insID: item.insID,
+            created: dayjs(item.created),
+            lastModified: dayjs(item.lastModified),
+            content: item.content,
+          });
+        });
+        index.value += 10;
+      } else {
+        ElMessage.info("No new posts");
+      }
     }
   });
 };

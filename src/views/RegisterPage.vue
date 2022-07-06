@@ -5,7 +5,7 @@
         <div class="title">Instant</div>
         <div class="form-container">
           <el-form
-            ref="FormRef"
+            ref="formRef"
             status-icon
             class="form"
             size="large"
@@ -128,7 +128,7 @@
               </el-tag>
               <el-input
                 v-if="inputVisible"
-                ref="InputRef"
+                ref="inputRef"
                 v-model="inputValue"
                 class="tag-input"
                 size="default"
@@ -174,8 +174,8 @@ import { ElForm, ElInput, ElMessage } from "element-plus";
 import { nextTick, ref, reactive } from "vue";
 const inputValue = ref("");
 const inputVisible = ref(false);
-const InputRef = ref<InstanceType<typeof ElInput>>();
-const FormRef = ref<InstanceType<typeof ElForm>>();
+const inputRef = ref<InstanceType<typeof ElInput>>();
+const formRef = ref<InstanceType<typeof ElForm>>();
 const form = reactive<ProfileType>(getInitialProfile());
 const vPassword = (
   _rule: unknown,
@@ -186,8 +186,8 @@ const vPassword = (
     callback(new Error("Password is required"));
   } else {
     if (form.password !== "") {
-      if (!FormRef.value) return;
-      FormRef.value.validateField("Password", () => null);
+      if (!formRef.value) return;
+      formRef.value.validateField("Password", () => null);
     }
     callback();
   }
@@ -229,7 +229,7 @@ const rules = reactive({
   // Tag: [{ trigger: 'blur' }],
 });
 const createNewAccount = () => {
-  FormRef.value?.validate((valid: boolean) => {
+  formRef.value?.validate((valid: boolean) => {
     if (valid) {
       register(form).then((res) => {
         if (res?.code === 201) {
@@ -251,7 +251,7 @@ const handleClose = (tag: string) => {
 const showInput = () => {
   inputVisible.value = true;
   nextTick(() => {
-    InputRef.value?.input?.focus();
+    inputRef.value?.input?.focus();
   });
 };
 const handleInputConfirm = () => {

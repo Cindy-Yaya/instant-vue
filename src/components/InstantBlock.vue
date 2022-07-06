@@ -15,17 +15,12 @@
       {{ text }}
     </div>
     <el-dialog v-model="data.showEditDialog">
-      <el-form label-width="auto">
-        <el-form-item label="Edit Your Instant">
-          <el-input
-            v-model="data.editInstant"
-            type="textarea"
-            resize="none"
-            autocomplete="off"
-            @keyup.enter="updateInstant(insID, data.editInstant)"
-          />
-        </el-form-item>
-      </el-form>
+      <div>Edit Your Instant</div>
+      <el-input
+        v-model="data.editInstant"
+        size="large"
+        @keyup.enter="onUpdateInstant"
+      />
     </el-dialog>
     <div class="img-container" />
     <div class="info-container">
@@ -151,7 +146,7 @@ const props = defineProps({
   isLiked: { type: Boolean, default: false },
   likes: { type: String, default: "" },
   shares: { type: String, default: "" },
-  getInstants: { type: Function, default: () => {} },
+  loadInstants: { type: Function, default: () => {} },
 });
 type InstantType = {
   shareInput: string;
@@ -175,8 +170,17 @@ const data = reactive<InstantType>({
   comments: [],
   shares: [],
 });
-let likesList = `Evan, Yaya and 23 more...`;
-let sharesList = `Evan, Yaya and 7 more...`;
+const likesList = `Evan, Yaya and 23 more...`;
+const sharesList = `Evan, Yaya and 7 more...`;
+const onUpdateInstant = () => {
+  updateInstant(props.insID, data.editInstant).then((res) => {
+    if (res?.code === 201) {
+      data.editInstant = "";
+      data.showEditDialog = false;
+      props.loadInstants(0);
+    }
+  });
+};
 </script>
 
 <style scoped lang="scss">
