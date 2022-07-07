@@ -14,16 +14,16 @@
           :load-instants="loadInstants"
         />
         <InstantBlock
-          v-for="i in instantData"
-          :key="i.insID"
-          :ins-i-d="i.insID"
+          v-for="instant in instantData"
+          :key="instant.insID"
+          :ins-i-d="instant.insID"
           :username="userInfo.username"
           :avatar="userInfo.avatar"
-          :time="i.created.format('MMM D, YYYY')"
-          :text="i.content"
+          :time="instant.created.format('MMM D, YYYY')"
+          :text="instant.content"
           :load-instants="loadInstants"
-          likes="25"
-          shares="9"
+          :likes="instant.likes"
+          :shares="instant.shares"
         /> </el-main
       ><el-aside class="base-container hide-on-xs" width="auto">
         <div class="section-container">
@@ -55,21 +55,30 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref } from "vue";
-import InstantBlock from "@/components/InstantBlock.vue";
-import MyBlock from "@/components/MyBlock.vue";
-import MainHeader from "@/components/MainHeader.vue";
-import SidePanel from "@/components/SidePanel.vue";
-import { getInstants, InstantType } from "@/apis/instant";
-import dayjs from "dayjs";
-import { ElMessage } from "element-plus";
-import { getUserInfo } from "@/apis/profile";
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
+import InstantBlock from '@/components/InstantBlock.vue';
+import MyBlock from '@/components/MyBlock.vue';
+import MainHeader from '@/components/MainHeader.vue';
+import SidePanel from '@/components/SidePanel.vue';
+import { getInstants } from '@/apis/instant';
+import dayjs, { Dayjs } from 'dayjs';
+import { ElMessage } from 'element-plus';
+import { getUserInfo } from '@/apis/profile';
 const userInfo = reactive({
-  username: "",
+  username: '',
   avatar: 0,
 });
 const index = ref(0);
-const instantData = reactive<InstantType[]>([]);
+const instantData = reactive<
+  {
+    insID: string;
+    created: Dayjs;
+    lastModified: Dayjs;
+    content: string;
+    likes: number;
+    shares: number;
+  }[]
+>([]);
 const loadUserInfo = () => {
   getUserInfo().then((res) => {
     console.log(res);
@@ -85,6 +94,7 @@ const loadInstants = (i: number) => {
     if (res?.code === 200) {
       if (i === 0) {
         instantData.length = 0;
+        window.scrollTo({ top: 0 });
       }
       if (res.data.length > 0) {
         res.data.forEach((item: any) => {
@@ -93,11 +103,13 @@ const loadInstants = (i: number) => {
             created: dayjs(item.created),
             lastModified: dayjs(item.lastModified),
             content: item.content,
+            likes: item.likes,
+            shares: item.shares,
           });
         });
         index.value += 10;
       } else {
-        ElMessage.info("No new posts");
+        ElMessage.info('No new posts');
       }
     }
   });
@@ -110,10 +122,10 @@ const loadMore = () => {
 onMounted(() => {
   loadUserInfo();
   loadInstants(0);
-  window.addEventListener("scroll", loadMore);
+  window.addEventListener('scroll', loadMore);
 });
 onUnmounted(() => {
-  window.removeEventListener("scroll", loadMore);
+  window.removeEventListener('scroll', loadMore);
 });
 </script>
 

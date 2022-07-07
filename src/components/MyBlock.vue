@@ -13,16 +13,23 @@
 
 <script setup lang="ts">
 import { postInstant } from "@/apis/instant";
+import { ElMessage } from "element-plus";
 import { ref } from "vue";
 const props = defineProps({
   username: { type: String, default: "" },
   avatar: { type: Number, default: 0 },
-  token: { type: String, default: "" },
   loadInstants: { type: Function, default: () => {} },
 });
 const content = ref("");
 const onPost = () => {
-  postInstant(content.value);
+  postInstant(content.value).then((res) => {
+    console.log(res);
+    if (res?.code === 201) {
+      ElMessage.success("Post success!");
+      content.value = "";
+      props.loadInstants(0);
+    }
+  })
 };
 </script>
 

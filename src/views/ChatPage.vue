@@ -4,17 +4,17 @@
       <MainHeader active="2" />
     </el-header>
     <el-container class="content-container">
-      <el-aside class="baseContainer hideOnMs" width="auto">
-        <div class="baseLine">
+      <el-aside class="base-container hide-on-ms" width="auto">
+        <div class="base-line">
           <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
-          <div class="lineText">Yaya and Evan</div>
+          <div class="line-text">Yaya and Evan</div>
         </div>
-        <div class="baseLine">
+        <div class="base-line">
           <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
-          <div class="lineText">Evan and Yaya</div>
+          <div class="line-text">Evan and Yaya</div>
         </div> </el-aside
-      ><el-main class="mainContainer">
-        <div ref="chatContainer" class="chatContainer">
+      ><el-main class="main-container">
+        <div ref="chatContainer" class="chat-container">
           <MsgBlock
             v-for="i in msgList"
             :key="i.localMsgSeq"
@@ -24,10 +24,10 @@
             :state="i.state"
           />
         </div>
-        <div class="inputContainer">
+        <div class="input-container">
           <el-input
             v-model="msgInput"
-            class="msgInput"
+            class="msg-input"
             size="large"
             @keyup.enter="sendMsg"
           />
@@ -182,36 +182,26 @@ onUnmounted(() => {
   text-indent: 6px;
   font-size: 15px;
 }
-.hideOnMs {
-  @media only screen and (max-width: 992px) {
-    display: none;
-  }
-}
-.hideOnXs {
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
-}
-.sectionContainer {
+.section-container {
   padding-bottom: 24px;
 }
-.baseHeader {
+.base-header {
   color: #65676b;
   font-size: 17px;
   font-weight: 600;
   padding-bottom: 12px;
 }
-.mainContainer {
+.main-container {
   height: calc(100vh - 54px);
 }
-.chatContainer {
+.chat-container {
   width: 100%;
   height: calc(100% - 60px);
   overflow: auto;
   display: flex;
   flex-direction: column;
 }
-.inputContainer {
+.input-container {
   width: 100%;
   height: 60px;
   display: flex;
@@ -219,7 +209,7 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
 }
-.msgInput {
+.msg-input {
   width: 90%;
 }
 </style>

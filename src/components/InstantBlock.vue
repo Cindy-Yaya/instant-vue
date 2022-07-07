@@ -19,7 +19,7 @@
       <el-input
         v-model="data.editInstant"
         size="large"
-        @keyup.enter="onUpdateInstant"
+        @keyup.enter="onUpdateClick"
       />
     </el-dialog>
     <div class="img-container" />
@@ -46,7 +46,7 @@
         borderBottom: data.showComments ? `1px solid #ced0d4` : `none`,
       }"
     >
-      <div class="btn" @click="likeInstant(insID)">
+      <div class="btn" @click="onLikeClick">
         <div class="icon-container">
           <i
             class="bg-icon"
@@ -136,6 +136,7 @@ import {
   shareInstant,
   updateInstant,
 } from "@/apis/instant";
+import { ElMessage } from "element-plus";
 import { reactive } from "vue";
 const props = defineProps({
   insID: { type: String, default: "" },
@@ -144,8 +145,8 @@ const props = defineProps({
   time: { type: String, default: "" },
   text: { type: String, default: "" },
   isLiked: { type: Boolean, default: false },
-  likes: { type: String, default: "" },
-  shares: { type: String, default: "" },
+  likes: { type: Number, default: 0 },
+  shares: { type: Number, default: 0 },
   loadInstants: { type: Function, default: () => {} },
 });
 type InstantType = {
@@ -155,6 +156,7 @@ type InstantType = {
   showEditDialog: boolean;
   showShareDialog: boolean;
   showComments: boolean;
+  isLiked: boolean;
   likes: string[];
   comments: string[];
   shares: string[];
@@ -166,18 +168,27 @@ const data = reactive<InstantType>({
   showEditDialog: false,
   showShareDialog: false,
   showComments: false,
+  isLiked:false,
   likes: [],
   comments: [],
   shares: [],
 });
 const likesList = `Evan, Yaya and 23 more...`;
 const sharesList = `Evan, Yaya and 7 more...`;
-const onUpdateInstant = () => {
+const onUpdateClick = () => {
   updateInstant(props.insID, data.editInstant).then((res) => {
     if (res?.code === 201) {
       data.editInstant = "";
       data.showEditDialog = false;
       props.loadInstants(0);
+    }
+  });
+};
+const onLikeClick = () => {
+  likeInstant(props.insID, 0).then((res) => {
+    if (res?.code === 201) {
+      ElMessage.success("Liked");
+      data.isLiked = true;
     }
   });
 };

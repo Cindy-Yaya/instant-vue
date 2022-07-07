@@ -1,4 +1,4 @@
-import { request } from "@/utils/request";
+import { request } from '@/utils/request';
 export const getUserInfo = async (userID?: number) => {
-  return request("profile", "GET", { userID: userID }, null);
+  return request('profile', 'GET', userID ? { userID: userID } : null, null);
 };
