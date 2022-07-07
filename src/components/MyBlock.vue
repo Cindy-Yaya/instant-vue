@@ -29,7 +29,7 @@ const onPost = () => {
       content.value = "";
       props.loadInstants(0);
     }
-  })
+  });
 };
 </script>
 

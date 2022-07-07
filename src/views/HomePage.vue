@@ -55,17 +55,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref } from 'vue';
-import InstantBlock from '@/components/InstantBlock.vue';
-import MyBlock from '@/components/MyBlock.vue';
-import MainHeader from '@/components/MainHeader.vue';
-import SidePanel from '@/components/SidePanel.vue';
-import { getInstants } from '@/apis/instant';
-import dayjs, { Dayjs } from 'dayjs';
-import { ElMessage } from 'element-plus';
-import { getUserInfo } from '@/apis/profile';
+import { onMounted, onUnmounted, reactive, ref } from "vue";
+import InstantBlock from "@/components/InstantBlock.vue";
+import MyBlock from "@/components/MyBlock.vue";
+import MainHeader from "@/components/MainHeader.vue";
+import SidePanel from "@/components/SidePanel.vue";
+import { getInstants } from "@/apis/instant";
+import dayjs, { Dayjs } from "dayjs";
+import { ElMessage } from "element-plus";
+import { getUserInfo } from "@/apis/profile";
 const userInfo = reactive({
-  username: '',
+  username: "",
   avatar: 0,
 });
 const index = ref(0);
@@ -109,7 +109,7 @@ const loadInstants = (i: number) => {
         });
         index.value += 10;
       } else {
-        ElMessage.info('No new posts');
+        ElMessage.info("No new posts");
       }
     }
   });
@@ -122,10 +122,10 @@ const loadMore = () => {
 onMounted(() => {
   loadUserInfo();
   loadInstants(0);
-  window.addEventListener('scroll', loadMore);
+  window.addEventListener("scroll", loadMore);
 });
 onUnmounted(() => {
-  window.removeEventListener('scroll', loadMore);
+  window.removeEventListener("scroll", loadMore);
 });
 </script>
 

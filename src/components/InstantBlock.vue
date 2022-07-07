@@ -168,7 +168,7 @@ const data = reactive<InstantType>({
   showEditDialog: false,
   showShareDialog: false,
   showComments: false,
-  isLiked:false,
+  isLiked: false,
   likes: [],
   comments: [],
   shares: [],
