@@ -5,16 +5,20 @@
     </el-header>
     <el-container class="content-container">
       <el-aside class="base-container hide-on-ms" width="auto"
-        ><SidePanel
+        ><SidePanel :username="userInfo.username" :avatar="userInfo.avatar"
       /></el-aside>
       <el-main class="main-container">
-        <MyBlock user-name="Evan" avatar="0" />
+        <MyBlock
+          :username="userInfo.username"
+          :avatar="userInfo.avatar"
+          :load-instants="loadInstants"
+        />
         <InstantBlock
           v-for="i in instantData"
           :key="i.insID"
           :ins-i-d="i.insID"
-          user-name="Evan"
-          avatar="0"
+          :username="userInfo.username"
+          :avatar="userInfo.avatar"
           :time="i.created.format('MMM D, YYYY')"
           :text="i.content"
           :load-instants="loadInstants"
@@ -59,8 +63,22 @@ import SidePanel from "@/components/SidePanel.vue";
 import { getInstants, InstantType } from "@/apis/instant";
 import dayjs from "dayjs";
 import { ElMessage } from "element-plus";
+import { getUserInfo } from "@/apis/profile";
+const userInfo = reactive({
+  username: "",
+  avatar: 0,
+});
 const index = ref(0);
 const instantData = reactive<InstantType[]>([]);
+const loadUserInfo = () => {
+  getUserInfo().then((res) => {
+    console.log(res);
+    if (res?.code === 200) {
+      userInfo.username = res.data.username;
+      userInfo.avatar = res.data.avatar;
+    }
+  });
+};
 const loadInstants = (i: number) => {
   getInstants(i).then((res) => {
     console.log(res);
@@ -90,8 +108,9 @@ const loadMore = () => {
   }
 };
 onMounted(() => {
-  window.addEventListener("scroll", loadMore);
+  loadUserInfo();
   loadInstants(0);
+  window.addEventListener("scroll", loadMore);
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", loadMore);

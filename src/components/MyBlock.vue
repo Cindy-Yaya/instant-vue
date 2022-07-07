@@ -5,7 +5,7 @@
       v-model="content"
       class="input"
       size="large"
-      :placeholder="placeholder"
+      :placeholder="`What's on your mind, ${username}?`"
       @keyup.enter="onPost"
     />
   </div>
@@ -15,14 +15,12 @@
 import { postInstant } from "@/apis/instant";
 import { ref } from "vue";
 const props = defineProps({
-  userName: { type: String, default: "" },
-  avatar: { type: String, default: "" },
-  userID: { type: Number, default: 0 },
+  username: { type: String, default: "" },
+  avatar: { type: Number, default: 0 },
   token: { type: String, default: "" },
-  getInstants: { type: Function, default: () => {} },
+  loadInstants: { type: Function, default: () => {} },
 });
 const content = ref("");
-const placeholder = `What's on your mind, ${props.userName}?`;
 const onPost = () => {
   postInstant(content.value);
 };

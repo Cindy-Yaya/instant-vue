@@ -233,7 +233,7 @@ const createNewAccount = () => {
     if (valid) {
       register(form).then((res) => {
         if (res?.code === 201) {
-          ElMessage.success(res.message);
+          ElMessage.success("Create Account Success!");
           nextTick(() => {
             router.push("/login");
           });

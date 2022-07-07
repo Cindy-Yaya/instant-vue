@@ -4,7 +4,7 @@
       <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
       <div class="header-text-container">
         <div class="header-name">
-          {{ userName }}
+          {{ username }}
         </div>
         <div class="header-time">
           {{ time }}
@@ -139,8 +139,8 @@ import {
 import { reactive } from "vue";
 const props = defineProps({
   insID: { type: String, default: "" },
-  userName: { type: String, default: "" },
-  avatar: { type: String, default: "" },
+  username: { type: String, default: "" },
+  avatar: { type: Number, default: 0 },
   time: { type: String, default: "" },
   text: { type: String, default: "" },
   isLiked: { type: Boolean, default: false },

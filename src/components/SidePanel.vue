@@ -4,10 +4,10 @@
       <div class="base-line">
         <img
           class="line-icon"
-          src="/img/icons/avatar-0.jpg"
+          :src="`/img/icons/avatar-${avatar}.jpg`"
           style="border-radius: 50%"
         />
-        <div class="lineText">Evan</div>
+        <div class="line-text">{{ username }}</div>
       </div> </el-header
     ><el-main>
       <div class="base-line">
@@ -20,7 +20,7 @@
         <div class="icon-container">
           <img class="line-icon" src="/img/icons/groups.png" />
         </div>
-        <div class="lineText">Groups</div>
+        <div class="line-text">Groups</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
@@ -69,7 +69,12 @@
   </el-container>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+  username: { type: String, default: "" },
+  avatar: { type: Number, default: 0 },
+});
+</script>
 
 <style lang="scss" scoped>
 .base-container {
