@@ -7,7 +7,7 @@ export const register = async (form: ProfileType) => {
     phone: form.phone,
     password: form.password,
     username: form.username,
-    gender: form.gender,
+    gender: Number.parseInt(form.gender),
     country: 0,
     province: 0,
     city: 0,

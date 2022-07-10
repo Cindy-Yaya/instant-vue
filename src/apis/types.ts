@@ -6,7 +6,7 @@ export type ProfileType = {
   password: string;
   confirmPassword: string;
   username: string;
-  gender: number;
+  gender: string;
   zone: string;
   birthday: Date | Dayjs | null;
   school: string;
@@ -24,7 +24,7 @@ export const getInitialProfile = (): ProfileType => {
     password: "",
     confirmPassword: "",
     username: "",
-    gender: 2,
+    gender: "2",
     zone: "",
     birthday: null,
     school: "",
