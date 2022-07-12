@@ -15,11 +15,15 @@
       </div>
       <div class="profile-container-wrapper">
         <div class="profile-container">
-          <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
+          <img
+            class="avatar"
+            :src="`/img/icons/avatar-${userInfo.avatar}.jpg`"
+            alt=""
+          />
           <div class="info-container">
             <div class="text-container">
               <div class="title">
-                {{ username }}
+                {{ userInfo.username }}
               </div>
               <div class="subtitle">1 Friend</div>
             </div>
@@ -35,39 +39,47 @@
             <div class="aside-container">
               <div class="aside-title">Intro</div>
               <div class="aside-text">
-                {{ intro }}
+                {{ userInfo.intro }}
               </div>
-              <div v-if="birthday !== undefined" class="aside-text">
+              <div v-if="userInfo.birthday" class="aside-text">
                 Born on
-                <span class="bold">{{ birthday.format("MMM D, YYYY") }}</span>
+                <span class="bold">{{
+                  userInfo.birthday.format("MMM D, YYYY")
+                }}</span>
               </div>
               <div class="aside-text">
-                Working as <span class="bold">{{ job }}</span> at
-                <span class="bold">{{ company }}</span>
+                Working as <span class="bold">{{ userInfo.job }}</span> at
+                <span class="bold">{{ userInfo.company }}</span>
               </div>
               <div class="aside-text">
                 Studied at
-                <span class="bold">{{ school }}</span>
+                <span class="bold">{{ userInfo.school }}</span>
               </div>
-              <div v-if="createTime !== undefined" class="aside-text">
+              <div v-if="userInfo.created" class="aside-text">
                 Joined Instant on
-                <span class="bold">{{ createTime.format("MMM D, YYYY") }}</span>
+                <span class="bold">{{
+                  userInfo.created.format("MMM D, YYYY")
+                }}</span>
               </div>
             </div>
           </el-aside>
           <el-main>
-            <MyBlock user-name="Evan" avatar="0" />
-            <InstantBlock
-              v-for="i in instantData"
-              :key="i.insID"
-              :insid="i.insID"
-              user-name="Evan"
-              avatar="0"
-              :time="i.created.format('MMM D, YYYY')"
-              :text="i.content"
+            <MyBlock
+              :username="userInfo.username"
+              :avatar="userInfo.avatar"
               :load-instants="loadInstants"
-              likes="25"
-              shares="9"
+            />
+            <InstantBlock
+              v-for="instant in instantData"
+              :key="instant.insID"
+              :ins-i-d="instant.insID"
+              :username="userInfo.username"
+              :avatar="userInfo.avatar"
+              :time="instant.created.format('MMM D, YYYY')"
+              :text="instant.content"
+              :load-instants="loadInstants"
+              :likes="instant.likes"
+              :shares="instant.shares"
             />
           </el-main>
         </el-container>
@@ -77,7 +89,7 @@
 </template>
 
 <script setup lang="ts">
-import { getInstants, InstantType } from "@/apis/instant";
+import { getInstants } from "@/apis/instant";
 import { getUserInfo } from "@/apis/profile";
 import InstantBlock from "@/components/InstantBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
@@ -86,24 +98,57 @@ import dayjs, { Dayjs } from "dayjs";
 import { ElMessage } from "element-plus";
 import { onMounted, onUnmounted, reactive, ref } from "vue";
 const index = ref(0);
-const instantData = reactive<InstantType[]>([]);
-const avatar = ref(0);
-const birthday = ref<Dayjs>();
-const company = ref("");
-const createTime = ref<Dayjs>();
-const gender = ref(2);
-const intro = ref("");
-const job = ref("");
-const school = ref("");
-const tag = ref<string[]>([]);
-const username = ref("");
-const zone = ref("");
+const instantData = reactive<
+  {
+    insID: string;
+    created: Dayjs;
+    lastModified: Dayjs;
+    content: string;
+    likes: number;
+    shares: number;
+  }[]
+>([]);
+const userInfo = reactive<{
+  username: string;
+  avatar: number;
+  intro: string;
+  birthday: Dayjs | null;
+  job: string;
+  company: string;
+  school: string;
+  created: Dayjs | null;
+}>({
+  username: "",
+  avatar: 0,
+  intro: "",
+  birthday: null,
+  job: "",
+  company: "",
+  school: "",
+  created: null,
+});
+const loadUserInfo = () => {
+  getUserInfo().then((res) => {
+    console.log(res);
+    if (res?.code === 200) {
+      userInfo.username = res.data.username;
+      userInfo.avatar = res.data.avatar;
+      userInfo.intro = res.data.introduction;
+      userInfo.birthday = dayjs(res.data.birthday);
+      userInfo.job = res.data.job;
+      userInfo.company = res.data.company;
+      userInfo.school = res.data.school;
+      userInfo.created = dayjs(res.data.created);
+    }
+  });
+};
 const loadInstants = (i: number) => {
   getInstants(i).then((res) => {
     console.log(res);
     if (res?.code === 200) {
       if (i === 0) {
         instantData.length = 0;
+        window.scrollTo({ top: 0 });
       }
       if (res.data.length > 0) {
         res.data.forEach((item: any) => {
@@ -112,6 +157,8 @@ const loadInstants = (i: number) => {
             created: dayjs(item.created),
             lastModified: dayjs(item.lastModified),
             content: item.content,
+            likes: item.likes,
+            shares: item.shares,
           });
         });
         index.value += 10;
@@ -121,30 +168,14 @@ const loadInstants = (i: number) => {
     }
   });
 };
-const loadProfile = () => {
-  getUserInfo(14).then((res) => {
-    avatar.value = res.Avatar;
-    if (res.Birthday) birthday.value = dayjs(res.Birthday);
-    company.value = res.Company;
-    if (res.CreateTime) createTime.value = res.CreateTime;
-    gender.value = res.Gender;
-    intro.value = res.Introduction;
-    job.value = res.Job;
-    school.value = res.School;
-    tag.value = res.Tag;
-    username.value = res.Username;
-    zone.value = res.Zone;
-  });
-};
 const loadMore = () => {
   if (window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight) {
-    index.value += 10;
     loadInstants(index.value);
   }
 };
 onMounted(() => {
   window.addEventListener("scroll", loadMore);
-  loadProfile();
+  loadUserInfo();
   loadInstants(0);
 });
 onUnmounted(() => {
@@ -243,7 +274,7 @@ onUnmounted(() => {
 .title {
   color: #050505;
   font-size: 32px;
-  font-weight: 900;
+  font-weight: 600;
 }
 .subtitle {
   color: #65676b;
@@ -276,7 +307,7 @@ onUnmounted(() => {
 }
 .aside-text {
   font-size: 15px;
-  padding: 3px 6px;
+  padding: 6px;
   font-weight: 400;
   .bold {
     font-weight: 600;

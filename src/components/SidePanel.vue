@@ -1,12 +1,14 @@
 <template>
   <el-container>
     <el-header>
-      <div class="base-line">
-        <img
-          class="line-icon"
-          :src="`/img/icons/avatar-${avatar}.jpg`"
-          style="border-radius: 50%"
-        />
+      <div class="base-line" @click="onProfileClick">
+        <div class="icon-container">
+          <img
+            class="line-icon"
+            :src="`/img/icons/avatar-${avatar}.jpg`"
+            style="border-radius: 50%"
+          />
+        </div>
         <div class="line-text">{{ username }}</div>
       </div> </el-header
     ><el-main>
@@ -70,10 +72,15 @@
 </template>
 
 <script setup lang="ts">
+import router from "@/router";
+
 const props = defineProps({
   username: { type: String, default: "" },
   avatar: { type: Number, default: 0 },
 });
+const onProfileClick = () => {
+  router.push("/profile");
+};
 </script>
 
 <style lang="scss" scoped>
