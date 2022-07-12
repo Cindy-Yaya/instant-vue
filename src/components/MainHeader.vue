@@ -57,7 +57,7 @@ const onHomeClick = () => {
   router.push({ path: "/" });
 };
 const onFriendsClick = () => {
-  router.push({ path: "/friends" });
+  router.push({ path: "/following" });
 };
 const onChatClick = () => {
   router.push({ path: "/chat" });

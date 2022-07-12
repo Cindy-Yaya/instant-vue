@@ -9,14 +9,13 @@
       ><el-main class="main-container">
         <div class="title">People You May Know</div>
         <div class="friends-container">
-          <FriendBlock
+          <RelationBlock
             v-for="item in potentialFriends"
-            :key="item.friendID"
-            :name="item.name"
-            :friendid="item.friendID"
+            :key="item.userID"
+            :name="item.username"
+            :user-i-d="item.userID"
             :avatar="item.avatar"
             :tip="item.tip"
-            :get-friends="getFriends"
           />
         </div>
       </el-main>
@@ -27,30 +26,44 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
-import FriendBlock from "@/components/FriendBlock.vue";
+import RelationBlock from "@/components/RelationBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import SidePanel from "@/components/SidePanel.vue";
-import { FriendType, getFriends } from "@/apis/friend";
+import { FriendType, getAllUsers, getFollowings } from "@/apis/relation";
+import { ElMessage } from "element-plus";
 const index = ref(0);
 const potentialFriends = ref<FriendType[]>([]);
 const loadMore = () => {
-  // console.log(
-  //   `innerHeight: ${window.innerHeight}, scrollY: ${window.scrollY}, offsetHeight: ${document.body.offsetHeight}`
-  // );
   if (window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight) {
     index.value += 10;
-    getFriends(index.value);
+    loadPotentialFollowings(index.value);
   }
 };
-const loadFriends = (index: number) => {
-  getFriends(index).then((res) => {
-    if (index === 0) potentialFriends.value.length = 0;
-    potentialFriends.value = potentialFriends.value.concat(res);
+const loadPotentialFollowings = (i: number) => {
+  getAllUsers(i).then((res) => {
+    if (res?.code === 200) {
+      if (i === 0) {
+        potentialFriends.value.length = 0;
+        window.scrollTo({ top: 0 });
+      }
+      if (res.data.length > 0) {
+        res.data.forEach((item: any) => {
+          potentialFriends.value.push({
+            userID: item.userID,
+            username: item.username,
+            avatar: item.avatar,
+            tip: item.introduction,
+          });
+        });
+      }
+    } else {
+      ElMessage.error(res?.message);
+    }
   });
 };
 onMounted(() => {
   window.addEventListener("scroll", loadMore);
-  loadFriends(0);
+  loadPotentialFollowings(index.value);
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", loadMore);

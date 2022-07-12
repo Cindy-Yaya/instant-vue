@@ -22,9 +22,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/ChatPage.vue"),
   },
   {
-    path: "/friends",
-    name: "FriendsPage",
-    component: () => import("../views/FriendsPage.vue"),
+    path: "/following",
+    name: "FollowingPage",
+    component: () => import("../views/FollowingPage.vue"),
   },
   {
     path: "/login",

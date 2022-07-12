@@ -7,20 +7,41 @@
     <div class="tip">
       {{ tip }}
     </div>
-    <el-button class="btn" type="primary" @click="addFriend(friendID)">
+    <el-button class="btn" type="primary" @click="onAddClick">
       Add Friend
     </el-button>
-    <el-button class="btn" @click="removeFriend(friendID)"> Remove </el-button>
+    <el-button class="btn" @click="onRemoveClick"> Remove </el-button>
   </div>
 </template>
 <script setup lang="ts">
-import { addFriend, removeFriend } from "@/apis/friend";
+import { addFollowing, removeFollowing } from "@/apis/relation";
+import { ElMessage } from "element-plus";
 const props = defineProps({
   avatar: { type: Number, default: 0 },
   name: { type: String, default: "" },
   tip: { type: String, default: "" },
-  friendID: { type: Number, default: 0 },
+  userID: { type: String, default: "" },
 });
+const onAddClick = () => {
+  addFollowing(props.userID).then((res) => {
+    console.log(res);
+    if (res?.code === 202) {
+      ElMessage.success("Add following success");
+    } else {
+      ElMessage.error("Add following failed");
+    }
+  });
+};
+const onRemoveClick = () => {
+  removeFollowing(props.userID).then((res) => {
+    console.log(res);
+    if (res?.code === 202) {
+      ElMessage.success("Remove following success");
+    } else {
+      ElMessage.error("Remove following failed");
+    }
+  });
+};
 </script>
 
 <style scoped lang="scss">
