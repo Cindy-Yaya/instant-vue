@@ -29,7 +29,12 @@ import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import RelationBlock from "@/components/RelationBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import SidePanel from "@/components/SidePanel.vue";
-import { FriendType, getAllUsers, getFollowings } from "@/apis/relation";
+import {
+  FriendType,
+  getAllUsers,
+  getFollowings,
+  getPotentialFollowings,
+} from "@/apis/relation";
 import { ElMessage } from "element-plus";
 const index = ref(0);
 const potentialFriends = ref<FriendType[]>([]);
@@ -40,7 +45,7 @@ const loadMore = () => {
   }
 };
 const loadPotentialFollowings = (i: number) => {
-  getAllUsers(i).then((res) => {
+  getPotentialFollowings(i).then((res) => {
     if (res?.code === 200) {
       if (i === 0) {
         potentialFriends.value.length = 0;
@@ -55,6 +60,8 @@ const loadPotentialFollowings = (i: number) => {
             tip: item.introduction,
           });
         });
+      } else {
+        ElMessage.info("No more potential friends");
       }
     } else {
       ElMessage.error(res?.message);
