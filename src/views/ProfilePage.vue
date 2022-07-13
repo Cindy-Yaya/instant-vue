@@ -89,7 +89,7 @@
 </template>
 
 <script setup lang="ts">
-import { getInstants } from "@/apis/instant";
+import { getMyInstants } from "@/apis/instant";
 import { getUserInfo } from "@/apis/profile";
 import InstantBlock from "@/components/InstantBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
@@ -143,7 +143,7 @@ const loadUserInfo = () => {
   });
 };
 const loadInstants = (i: number) => {
-  getInstants(i).then((res) => {
+  getMyInstants(i).then((res) => {
     console.log(res);
     if (res?.code === 200) {
       if (i === 0) {
