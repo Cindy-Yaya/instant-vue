@@ -22,6 +22,7 @@
           :time="instant.created.format('MMM D, YYYY')"
           :text="instant.content"
           :load-instants="loadInstants"
+          :attitude="instant.attitude"
           :likes="instant.likes"
           :shares="instant.shares"
         /> </el-main
@@ -75,6 +76,7 @@ const instantData = reactive<
     created: Dayjs;
     lastModified: Dayjs;
     content: string;
+    attitude: number;
     likes: number;
     shares: number;
   }[]
@@ -103,6 +105,7 @@ const loadInstants = (i: number) => {
             created: dayjs(item.created),
             lastModified: dayjs(item.lastModified),
             content: item.content,
+            attitude: item.attitude,
             likes: item.likes,
             shares: item.shares,
           });

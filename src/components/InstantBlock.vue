@@ -30,7 +30,7 @@
         </div>
         <el-tooltip placement="bottom" effect="dark" :content="likesList">
           <div class="info-text">
-            {{ isLiked ? `You and ${likes} others` : likes }}
+            {{ attitude > 0 ? `You and ${likes} others` : likes }}
           </div>
         </el-tooltip>
       </div>
@@ -51,7 +51,7 @@
           <i
             class="bg-icon"
             :style="{
-              backgroundPosition: isLiked ? '0px -228px' : '0px -247px',
+              backgroundPosition: attitude > 0 ? '0px -228px' : '0px -247px',
             }"
           />
         </div>
@@ -144,7 +144,7 @@ const props = defineProps({
   avatar: { type: Number, default: 0 },
   time: { type: String, default: "" },
   text: { type: String, default: "" },
-  isLiked: { type: Boolean, default: false },
+  attitude: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   shares: { type: Number, default: 0 },
   loadInstants: { type: Function, default: () => {} },
@@ -156,7 +156,6 @@ type InstantType = {
   showEditDialog: boolean;
   showShareDialog: boolean;
   showComments: boolean;
-  isLiked: boolean;
   likes: string[];
   comments: string[];
   shares: string[];
@@ -168,7 +167,6 @@ const data = reactive<InstantType>({
   showEditDialog: false,
   showShareDialog: false,
   showComments: false,
-  isLiked: false,
   likes: [],
   comments: [],
   shares: [],
@@ -185,10 +183,9 @@ const onUpdateClick = () => {
   });
 };
 const onLikeClick = () => {
-  likeInstant(props.insID, 0).then((res) => {
+  likeInstant(props.insID, 1).then((res) => {
     if (res?.code === 201) {
       ElMessage.success("Liked");
-      data.isLiked = true;
     }
   });
 };
