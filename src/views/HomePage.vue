@@ -17,8 +17,8 @@
           v-for="instant in instantData"
           :key="instant.insID"
           :ins-i-d="instant.insID"
-          :username="userInfo.username"
-          :avatar="userInfo.avatar"
+          :username="instant.username"
+          :avatar="instant.avatar"
           :time="instant.created.format('MMM D, YYYY')"
           :text="instant.content"
           :load-instants="loadInstants"
@@ -73,6 +73,8 @@ const index = ref(0);
 const instantData = reactive<
   {
     insID: string;
+    username: string;
+    avatar: number;
     created: Dayjs;
     lastModified: Dayjs;
     content: string;
@@ -102,6 +104,8 @@ const loadInstants = (i: number) => {
         res.data.forEach((item: any) => {
           instantData.push({
             insID: item.insID,
+            username: item.username,
+            avatar: item.avatar,
             created: dayjs(item.created),
             lastModified: dayjs(item.lastModified),
             content: item.content,
