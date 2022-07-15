@@ -11,7 +11,11 @@
           alt=""
         />
         <div class="cover-bg-shared cover-gradient" />
-        <img class="cover" src="/img/covers/1C.jpg" alt="" />
+        <img
+          class="cover"
+          :src="`/img/covers/${userInfo.coverPhoto}C.jpg`"
+          alt=""
+        />
       </div>
       <div class="profile-container-wrapper">
         <div class="profile-container">
@@ -35,7 +39,7 @@
       </div>
       <div class="content-container">
         <el-container>
-          <el-aside class="aside-wrapper" width="360">
+          <el-aside class="aside-wrapper hide-on-ms" width="360">
             <div class="aside-container">
               <div class="aside-title">Intro</div>
               <div class="aside-text">
@@ -117,6 +121,7 @@ const userInfo = reactive<{
   company: string;
   school: string;
   created: Dayjs | null;
+  coverPhoto: number;
 }>({
   username: "",
   avatar: 0,
@@ -126,6 +131,7 @@ const userInfo = reactive<{
   company: "",
   school: "",
   created: null,
+  coverPhoto: 0,
 });
 const loadUserInfo = () => {
   getUserInfo().then((res) => {
@@ -139,6 +145,7 @@ const loadUserInfo = () => {
       userInfo.company = res.data.company;
       userInfo.school = res.data.school;
       userInfo.created = dayjs(res.data.created);
+      userInfo.coverPhoto = res.data.coverPhoto;
     }
   });
 };
