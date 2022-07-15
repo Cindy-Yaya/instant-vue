@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/LoginPage.vue"),
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "ProfilePage",
     component: () => import("../views/ProfilePage.vue"),
   },

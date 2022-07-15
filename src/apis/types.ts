@@ -1,5 +1,18 @@
 import dayjs, { Dayjs } from "dayjs";
 
+export type InstantType = {
+  insID: string;
+  userID: string;
+  username: string;
+  avatar: number;
+  created: Dayjs;
+  lastModified: Dayjs;
+  content: string;
+  attitude: number;
+  likes: number;
+  shares: number;
+};
+
 export type ProfileType = {
   mailBox: string;
   phone: string;

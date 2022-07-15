@@ -1,6 +1,11 @@
 <template>
   <div class="header-container">
-    <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
+    <img
+      class="avatar"
+      :src="`/img/icons/avatar-${avatar}.jpg`"
+      alt=""
+      @click="onAvatarClick"
+    />
     <el-input
       v-model="content"
       class="input"
@@ -13,9 +18,11 @@
 
 <script setup lang="ts">
 import { postInstant } from "@/apis/instant";
+import router from "@/router";
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
 const props = defineProps({
+  userID: { type: String, default: "" },
   username: { type: String, default: "" },
   avatar: { type: Number, default: 0 },
   loadInstants: { type: Function, default: () => {} },
@@ -30,6 +37,9 @@ const onPost = () => {
       props.loadInstants(0);
     }
   });
+};
+const onAvatarClick = () => {
+  router.push(`/profile/${props.userID}`);
 };
 </script>
 

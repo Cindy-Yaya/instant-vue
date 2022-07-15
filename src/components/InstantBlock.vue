@@ -1,9 +1,14 @@
 <template>
   <div class="instant-block">
     <div class="header-container">
-      <img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt="" />
+      <img
+        class="avatar"
+        :src="`/img/icons/avatar-${avatar}.jpg`"
+        alt=""
+        @click="onUserClick"
+      />
       <div class="header-text-container">
-        <div class="header-name">
+        <div class="header-name" @click="onUserClick">
           {{ username }}
         </div>
         <div class="header-time">
@@ -136,10 +141,12 @@ import {
   shareInstant,
   updateInstant,
 } from "@/apis/instant";
+import router from "@/router";
 import { ElMessage } from "element-plus";
 import { reactive } from "vue";
 const props = defineProps({
   insID: { type: String, default: "" },
+  userID: { type: String, default: "" },
   username: { type: String, default: "" },
   avatar: { type: Number, default: 0 },
   time: { type: String, default: "" },
@@ -173,6 +180,9 @@ const data = reactive<InstantType>({
 });
 const likesList = `Evan, Yaya and 23 more...`;
 const sharesList = `Evan, Yaya and 7 more...`;
+const onUserClick = () => {
+  router.push(`/profile/${props.userID}`);
+};
 const onUpdateClick = () => {
   updateInstant(props.insID, data.editInstant).then((res) => {
     if (res?.code === 201) {

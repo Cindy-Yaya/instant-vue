@@ -77,8 +77,8 @@
               v-for="instant in instantData"
               :key="instant.insID"
               :ins-i-d="instant.insID"
-              :username="userInfo.username"
-              :avatar="userInfo.avatar"
+              :username="instant.username"
+              :avatar="instant.avatar"
               :time="instant.created.format('MMM D, YYYY')"
               :text="instant.content"
               :load-instants="loadInstants"
@@ -93,26 +93,20 @@
 </template>
 
 <script setup lang="ts">
-import { getMyInstants } from "@/apis/instant";
+import { getInstantsByUserID } from "@/apis/instant";
 import { getUserInfo } from "@/apis/profile";
+import { InstantType } from "@/apis/types";
 import InstantBlock from "@/components/InstantBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
 import MyBlock from "@/components/MyBlock.vue";
 import dayjs, { Dayjs } from "dayjs";
 import { ElMessage } from "element-plus";
 import { onMounted, onUnmounted, reactive, ref } from "vue";
+import { useRoute } from "vue-router";
 const index = ref(0);
-const instantData = reactive<
-  {
-    insID: string;
-    created: Dayjs;
-    lastModified: Dayjs;
-    content: string;
-    likes: number;
-    shares: number;
-  }[]
->([]);
+const instantData = reactive<InstantType[]>([]);
 const userInfo = reactive<{
+  userID: string;
   username: string;
   avatar: number;
   intro: string;
@@ -123,6 +117,7 @@ const userInfo = reactive<{
   created: Dayjs | null;
   coverPhoto: number;
 }>({
+  userID: "",
   username: "",
   avatar: 0,
   intro: "",
@@ -133,10 +128,11 @@ const userInfo = reactive<{
   created: null,
   coverPhoto: 0,
 });
-const loadUserInfo = () => {
-  getUserInfo().then((res) => {
+const loadUserInfo = (callback?: Function) => {
+  getUserInfo(useRoute().params.id as string).then((res) => {
     console.log(res);
     if (res?.code === 200) {
+      userInfo.userID = res.data.userID;
       userInfo.username = res.data.username;
       userInfo.avatar = res.data.avatar;
       userInfo.intro = res.data.introduction;
@@ -146,11 +142,14 @@ const loadUserInfo = () => {
       userInfo.school = res.data.school;
       userInfo.created = dayjs(res.data.created);
       userInfo.coverPhoto = res.data.coverPhoto;
+      if (callback) {
+        callback(index.value);
+      }
     }
   });
 };
 const loadInstants = (i: number) => {
-  getMyInstants(i).then((res) => {
+  getInstantsByUserID(userInfo.userID, i).then((res) => {
     console.log(res);
     if (res?.code === 200) {
       if (i === 0) {
@@ -161,11 +160,15 @@ const loadInstants = (i: number) => {
         res.data.forEach((item: any) => {
           instantData.push({
             insID: item.insID,
+            userID: item.userID,
+            avatar: item.avatar,
+            username: item.username,
             created: dayjs(item.created),
             lastModified: dayjs(item.lastModified),
             content: item.content,
             likes: item.likes,
             shares: item.shares,
+            attitude: item.attitude,
           });
         });
         index.value += 10;
@@ -182,8 +185,7 @@ const loadMore = () => {
 };
 onMounted(() => {
   window.addEventListener("scroll", loadMore);
-  loadUserInfo();
-  loadInstants(0);
+  loadUserInfo(loadInstants);
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", loadMore);

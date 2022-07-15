@@ -75,11 +75,12 @@
 import router from "@/router";
 
 const props = defineProps({
+  userID: { type: String, default: "" },
   username: { type: String, default: "" },
   avatar: { type: Number, default: 0 },
 });
 const onProfileClick = () => {
-  router.push("/profile");
+  router.push(`/profile/${props.userID}`);
 };
 </script>
 

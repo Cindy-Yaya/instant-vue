@@ -5,10 +5,14 @@
     </el-header>
     <el-container class="content-container">
       <el-aside class="base-container hide-on-ms" width="auto"
-        ><SidePanel :username="userInfo.username" :avatar="userInfo.avatar"
+        ><SidePanel
+          :user-i-d="userInfo.userID"
+          :username="userInfo.username"
+          :avatar="userInfo.avatar"
       /></el-aside>
       <el-main class="main-container">
         <MyBlock
+          :user-i-d="userInfo.userID"
           :username="userInfo.username"
           :avatar="userInfo.avatar"
           :load-instants="loadInstants"
@@ -17,6 +21,7 @@
           v-for="instant in instantData"
           :key="instant.insID"
           :ins-i-d="instant.insID"
+          :user-i-d="instant.userID"
           :username="instant.username"
           :avatar="instant.avatar"
           :time="instant.created.format('MMM D, YYYY')"
@@ -65,28 +70,19 @@ import { getInstants } from "@/apis/instant";
 import dayjs, { Dayjs } from "dayjs";
 import { ElMessage } from "element-plus";
 import { getUserInfo } from "@/apis/profile";
+import { InstantType } from "@/apis/types";
 const userInfo = reactive({
+  userID: "",
   username: "",
   avatar: 0,
 });
 const index = ref(0);
-const instantData = reactive<
-  {
-    insID: string;
-    username: string;
-    avatar: number;
-    created: Dayjs;
-    lastModified: Dayjs;
-    content: string;
-    attitude: number;
-    likes: number;
-    shares: number;
-  }[]
->([]);
+const instantData = reactive<InstantType[]>([]);
 const loadUserInfo = () => {
   getUserInfo().then((res) => {
     console.log(res);
     if (res?.code === 200) {
+      userInfo.userID = res.data.userID;
       userInfo.username = res.data.username;
       userInfo.avatar = res.data.avatar;
     }
@@ -104,6 +100,7 @@ const loadInstants = (i: number) => {
         res.data.forEach((item: any) => {
           instantData.push({
             insID: item.insID,
+            userID: item.userID,
             username: item.username,
             avatar: item.avatar,
             created: dayjs(item.created),

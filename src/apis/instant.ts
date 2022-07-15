@@ -2,8 +2,13 @@ import { request } from "@/utils/request";
 export const getInstants = async (index: number) => {
   return request("instant", "GET", { index: index }, null);
 };
-export const getMyInstants = async (index: number) => {
-  return request("instant/mine", "GET", { index: index }, null);
+export const getInstantsByUserID = async (userID: string, index: number) => {
+  return request(
+    "instant/instants",
+    "GET",
+    { userID: userID, index: index },
+    null
+  );
 };
 export const postInstant = async (content: string) => {
   return request("instant", "POST", null, { content: content });
