@@ -50,7 +50,7 @@
       </div>
       <div class="shares-info">
         <el-tooltip placement="bottom" effect="dark">
-          <template #content> </template>
+          <template #content></template>
           <div class="info-text">
             {{ shares > 0 ? `${shares} Shares` : "0 Share" }}
           </div>
