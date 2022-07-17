@@ -40,3 +40,6 @@ export const shareInstant = async (content: string, refOriginID: string) => {
     refOriginID: refOriginID,
   });
 };
+export const getLikesUsername = async (insID: string) => {
+  return request("instant/getLikesUsername", "GET", { insID: insID }, null);
+};

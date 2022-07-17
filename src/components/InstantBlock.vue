@@ -33,15 +33,27 @@
         <div class="icon-container">
           <img class="icon-img" src="/img/icons/likes.svg" />
         </div>
-        <el-tooltip placement="bottom" effect="dark" :content="likesList">
-          <div class="info-text">
-            {{ attitude > 0 ? `You and ${likes} others` : likes }}
+        <el-tooltip placement="bottom" effect="dark">
+          <template #content
+            ><div v-for="(item, index) in data.likes" :key="index">
+              {{ item }}
+            </div></template
+          >
+          <div class="info-text" @pointerenter="onLikePointerEnter">
+            {{
+              attitude > 0
+                ? `You${likes - 1 > 0 ? ` and ${likes - 1} others` : ``}`
+                : likes
+            }}
           </div>
         </el-tooltip>
       </div>
       <div class="shares-info">
-        <el-tooltip placement="bottom" effect="dark" :content="sharesList">
-          <div class="info-text">{{ shares }} Shares</div>
+        <el-tooltip placement="bottom" effect="dark">
+          <template #content> multiple lines<br />second line </template>
+          <div class="info-text">
+            {{ shares > 0 ? `${shares} Shares` : "0 Share" }}
+          </div>
         </el-tooltip>
       </div>
     </div>
@@ -136,6 +148,7 @@
 <script setup lang="ts">
 import {
   getComments,
+  getLikesUsername,
   likeInstant,
   sendComment,
   shareInstant,
@@ -156,30 +169,28 @@ const props = defineProps({
   shares: { type: Number, default: 0 },
   loadInstants: { type: Function, default: () => {} },
 });
-type InstantType = {
+type DataType = {
   shareInput: string;
   commentInput: string;
   editInstant: string;
   showEditDialog: boolean;
   showShareDialog: boolean;
   showComments: boolean;
-  likes: string[];
   comments: string[];
+  likes: string[];
   shares: string[];
 };
-const data = reactive<InstantType>({
+const data = reactive<DataType>({
   shareInput: "",
   commentInput: "",
   editInstant: "",
   showEditDialog: false,
   showShareDialog: false,
   showComments: false,
-  likes: [],
   comments: [],
+  likes: [],
   shares: [],
 });
-const likesList = `Evan, Yaya and 23 more...`;
-const sharesList = `Evan, Yaya and 7 more...`;
 const onUserClick = () => {
   router.push(`/profile/${props.userID}`);
 };
@@ -196,6 +207,13 @@ const onLikeClick = () => {
   likeInstant(props.insID, 1).then((res) => {
     if (res?.code === 201) {
       ElMessage.success("Liked");
+    }
+  });
+};
+const onLikePointerEnter = () => {
+  getLikesUsername(props.insID).then((res) => {
+    if (res?.code === 200) {
+      data.likes = res.data;
     }
   });
 };
@@ -262,6 +280,11 @@ const onLikeClick = () => {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+.info-text {
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .icon-container {
   height: 24px;
