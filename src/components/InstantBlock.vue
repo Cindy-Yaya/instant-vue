@@ -5,10 +5,10 @@
         class="avatar"
         :src="`/img/icons/avatar-${avatar}.jpg`"
         alt=""
-        @click="onUserClick"
+        @click="onUserClick(userID)"
       />
       <div class="header-text-container">
-        <div class="header-name" @click="onUserClick">
+        <div class="header-name" @click="onUserClick(userID)">
           {{ username }}
         </div>
         <div class="header-time">
@@ -35,8 +35,12 @@
         </div>
         <el-tooltip placement="bottom" effect="dark">
           <template #content
-            ><div v-for="(item, index) in data.likes" :key="index">
-              {{ item }}
+            ><div
+              v-for="item in data.likes"
+              :key="item.userID"
+              @click="onUserClick(item.userID)"
+            >
+              {{ item.username }}
             </div></template
           >
           <div class="info-text" @pointerenter="onLikePointerEnter">
@@ -74,7 +78,7 @@
         </div>
         Like
       </div>
-      <div class="btn" @click="getComments(insID)">
+      <div class="btn" @click="onCommentClick">
         <div class="icon-container">
           <i
             class="bg-icon"
@@ -122,7 +126,7 @@
         /><el-button
           type="primary"
           style="margin: 0 12px"
-          @click="sendComment(insID, data.commentInput)"
+          @click="onSendCommentClick"
         >
           Send
         </el-button>
@@ -148,7 +152,7 @@
 <script setup lang="ts">
 import {
   getComments,
-  getLikesUsername,
+  getLikesUserInfo,
   likeInstant,
   sendComment,
   shareInstant,
@@ -177,7 +181,7 @@ type DataType = {
   showShareDialog: boolean;
   showComments: boolean;
   comments: string[];
-  likes: string[];
+  likes: { username: string; userID: string }[];
   shares: string[];
 };
 const data = reactive<DataType>({
@@ -191,8 +195,8 @@ const data = reactive<DataType>({
   likes: [],
   shares: [],
 });
-const onUserClick = () => {
-  router.push(`/profile/${props.userID}`);
+const onUserClick = (userID: string) => {
+  router.push(`/profile/${userID}`);
 };
 const onUpdateClick = () => {
   updateInstant(props.insID, data.editInstant).then((res) => {
@@ -211,9 +215,31 @@ const onLikeClick = () => {
   });
 };
 const onLikePointerEnter = () => {
-  getLikesUsername(props.insID).then((res) => {
+  getLikesUserInfo(props.insID, 0).then((res) => {
     if (res?.code === 200) {
       data.likes = res.data;
+    }
+  });
+};
+const onCommentClick = () => {
+  data.showComments = !data.showComments;
+  if (data.showComments) {
+    getComments(props.insID, 0).then((res) => {
+      if (res?.code === 200) {
+        data.comments = res.data;
+      }
+    });
+  }
+};
+const onSendCommentClick = () => {
+  sendComment(props.insID, data.commentInput, true).then((res) => {
+    if (res?.code === 201) {
+      data.commentInput = "";
+      getComments(props.insID, 0).then((res) => {
+        if (res?.code === 200) {
+          data.comments = res.data;
+        }
+      });
     }
   });
 };

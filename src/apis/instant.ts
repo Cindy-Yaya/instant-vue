@@ -25,13 +25,19 @@ export const likeInstant = async (insID: string, attitude: number) => {
     attitude: attitude,
   });
 };
-export const getComments = async (insID: string) => {
-  return request("comment", "GET", { insID: insID }, null);
+export const getComments = async (insID: string, index: number) => {
+  return request("comment", "GET", { insID: insID, index: index }, null);
 };
-export const sendComment = async (insID: string, content: string) => {
+export const sendComment = async (
+  insID: string,
+  content: string,
+  direct: boolean
+) => {
   return request("comment", "POST", null, {
     insID: insID,
     content: content,
+    replyToID: insID,
+    direct: direct,
   });
 };
 export const shareInstant = async (content: string, refOriginID: string) => {
@@ -40,6 +46,11 @@ export const shareInstant = async (content: string, refOriginID: string) => {
     refOriginID: refOriginID,
   });
 };
-export const getLikesUsername = async (insID: string) => {
-  return request("instant/getLikesUsername", "GET", { insID: insID }, null);
+export const getLikesUserInfo = async (insID: string, index: number) => {
+  return request(
+    "instant/getLikesUserInfo",
+    "GET",
+    { insID: insID, index: index },
+    null
+  );
 };

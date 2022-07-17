@@ -94,7 +94,7 @@
 
 <script setup lang="ts">
 import { getInstantsByUserID } from "@/apis/instant";
-import { getUserInfo } from "@/apis/profile";
+import { getUserProfileDetail } from "@/apis/profile";
 import { InstantType } from "@/apis/types";
 import InstantBlock from "@/components/InstantBlock.vue";
 import MainHeader from "@/components/MainHeader.vue";
@@ -128,8 +128,8 @@ const userInfo = reactive<{
   created: null,
   coverPhoto: 0,
 });
-const loadUserInfo = (callback?: Function) => {
-  getUserInfo(useRoute().params.id as string).then((res) => {
+const loadUserProfile = (callback?: Function) => {
+  getUserProfileDetail(useRoute().params.id as string).then((res) => {
     console.log(res);
     if (res?.code === 200) {
       userInfo.userID = res.data.userID;
@@ -185,7 +185,7 @@ const loadMore = () => {
 };
 onMounted(() => {
   window.addEventListener("scroll", loadMore);
-  loadUserInfo(loadInstants);
+  loadUserProfile(loadInstants);
 });
 onUnmounted(() => {
   window.removeEventListener("scroll", loadMore);

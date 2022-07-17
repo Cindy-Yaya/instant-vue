@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header class="header">
-      <MainHeader active="1" />
+      <MainHeader active="0" />
     </el-header>
     <el-container class="contentContainer">
       <el-aside class="baseContainer hideOnMs" width="auto">
@@ -73,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { getUserInfo } from "@/apis/profile";
+import { getUserProfile } from "@/apis/profile";
 import {
   InitialWeatherNow,
   UserType,
@@ -100,7 +100,7 @@ const weatherTodayData = ref<WeatherHourlyType[]>([]);
 const weatherWeekData = ref<WeatherDailyType[]>([]);
 const InitialLocation = "101020100";
 const loadUserInfo = () => {
-  getUserInfo().then((res) => {
+  getUserProfile().then((res) => {
     console.log(res);
     if (res?.code === 200) {
       userInfo.userID = res.data.userID;

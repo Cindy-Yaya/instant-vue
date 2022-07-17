@@ -23,3 +23,9 @@ export const addFollowing = async (followingID: string) => {
 export const removeFollowing = async (followingID: string) => {
   return request("relation", "DELETE", null, { followingID: followingID });
 };
+export const getFriends = async (index: number) => {
+  return request("relation/friends", "GET", { index: index }, null);
+};
+export const getRecentContacts = async (index: number) => {
+  return request("relation/recent", "GET", { index: index }, null);
+};

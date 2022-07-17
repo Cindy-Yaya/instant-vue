@@ -33,14 +33,18 @@
         /> </el-main
       ><el-aside class="base-container hide-on-xs" width="auto">
         <div class="section-container">
-          <div class="base-header">Contacts</div>
-          <div class="base-line">
+          <div class="base-header">Recent Contacts</div>
+          <div
+            v-for="contact in recentContacts"
+            :key="contact.userID"
+            class="base-line"
+          >
             <img
               class="line-icon"
-              src="/img/icons/avatar-0.jpg"
+              :src="`/img/icons/avatar-${contact.avatar}.jpg`"
               style="border-radius: 10%"
             />
-            <div class="line-text">Yaya</div>
+            <div class="line-text">{{ contact.username }}</div>
           </div>
         </div>
         <div class="section-container">
@@ -69,8 +73,9 @@ import SidePanel from "@/components/SidePanel.vue";
 import { getInstants } from "@/apis/instant";
 import dayjs, { Dayjs } from "dayjs";
 import { ElMessage } from "element-plus";
-import { getUserInfo } from "@/apis/profile";
+import { getUserProfile } from "@/apis/profile";
 import { InstantType, UserType } from "@/apis/types";
+import { getFriends, getRecentContacts } from "@/apis/relation";
 const userInfo = reactive<UserType>({
   userID: "",
   username: "",
@@ -78,8 +83,9 @@ const userInfo = reactive<UserType>({
 });
 const index = ref(0);
 const instantData = reactive<InstantType[]>([]);
-const loadUserInfo = () => {
-  getUserInfo().then((res) => {
+const recentContacts = reactive<UserType[]>([]);
+const loadUserProfile = () => {
+  getUserProfile().then((res) => {
     console.log(res);
     if (res?.code === 200) {
       userInfo.userID = res.data.userID;
@@ -118,14 +124,32 @@ const loadInstants = (i: number) => {
     }
   });
 };
+const loadRecentContacts = (i: number) => {
+  getRecentContacts(i).then((res) => {
+    console.log(res);
+    if (res?.code === 200) {
+      if (i === 0) {
+        recentContacts.length = 0;
+      }
+      res.data.forEach((item: UserType) => {
+        recentContacts.push({
+          userID: item.userID,
+          username: item.username,
+          avatar: item.avatar,
+        });
+      });
+    }
+  });
+};
 const loadMore = () => {
   if (window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight) {
     loadInstants(index.value);
   }
 };
 onMounted(() => {
-  loadUserInfo();
+  loadUserProfile();
   loadInstants(0);
+  loadRecentContacts(0);
   window.addEventListener("scroll", loadMore);
 });
 onUnmounted(() => {
