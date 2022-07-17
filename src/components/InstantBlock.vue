@@ -250,6 +250,9 @@ const onLikePointerEnter = () => {
 .header-name {
   font-size: 15px;
   font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .header-time {
   font-size: 14px;

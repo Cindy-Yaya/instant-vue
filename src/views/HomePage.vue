@@ -70,8 +70,8 @@ import { getInstants } from "@/apis/instant";
 import dayjs, { Dayjs } from "dayjs";
 import { ElMessage } from "element-plus";
 import { getUserInfo } from "@/apis/profile";
-import { InstantType } from "@/apis/types";
-const userInfo = reactive({
+import { InstantType, UserType } from "@/apis/types";
+const userInfo = reactive<UserType>({
   userID: "",
   username: "",
   avatar: 0,

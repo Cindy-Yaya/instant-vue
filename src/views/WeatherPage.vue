@@ -5,60 +5,11 @@
     </el-header>
     <el-container class="contentContainer">
       <el-aside class="baseContainer hideOnMs" width="auto">
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/find-friends.png" />
-          </div>
-          <div class="lineText">Find Friends</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/groups.png" />
-          </div>
-          <div class="lineText">Groups</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/memories.png" />
-          </div>
-          <div class="lineText">Memories</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/saved.png" />
-          </div>
-          <div class="lineText">Saved</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/pages.png" />
-          </div>
-          <div class="lineText">Pages</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/events.png" />
-          </div>
-          <div class="lineText">Events</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/most-recent.png" />
-          </div>
-          <div class="lineText">Most Recennt</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/favorites.png" />
-          </div>
-          <div class="lineText">Favorties</div>
-        </div>
-        <div class="baseLine">
-          <div class="iconContainer">
-            <img class="lineIcon" src="/img/icons/weather.png" />
-          </div>
-          <div class="lineText">Weather</div>
-        </div> </el-aside
+        <SidePanel
+          :user-i-d="userInfo.userID"
+          :username="userInfo.username"
+          :avatar="userInfo.avatar"
+        /> </el-aside
       ><el-main class="main-container">
         <div class="weather-container">
           <div class="title">Weather in Shanghai</div>
@@ -122,8 +73,10 @@
 </template>
 
 <script setup lang="ts">
+import { getUserInfo } from "@/apis/profile";
 import {
   InitialWeatherNow,
+  UserType,
   WeatherDailyType,
   WeatherHourlyType,
   WeatherNowType,
@@ -134,28 +87,45 @@ import {
   getWeatherOfWeek,
 } from "@/apis/weather";
 import MainHeader from "@/components/MainHeader.vue";
+import SidePanel from "@/components/SidePanel.vue";
 import dayjs from "dayjs";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
+const userInfo = reactive<UserType>({
+  userID: "",
+  username: "",
+  avatar: 0,
+});
 const weatherNowData = ref<WeatherNowType>(InitialWeatherNow);
 const weatherTodayData = ref<WeatherHourlyType[]>([]);
 const weatherWeekData = ref<WeatherDailyType[]>([]);
 const InitialLocation = "101020100";
+const loadUserInfo = () => {
+  getUserInfo().then((res) => {
+    console.log(res);
+    if (res?.code === 200) {
+      userInfo.userID = res.data.userID;
+      userInfo.username = res.data.username;
+      userInfo.avatar = res.data.avatar;
+    }
+  });
+};
 const loadWeatherOfNow = (location: string) => {
   getWeatherOfNow(location).then((res) => {
-    weatherNowData.value = res;
+    weatherNowData.value = res.now;
   });
 };
 const loadWeatherOfToday = (location: string) => {
   getWeatherOfToday(location).then((res) => {
-    weatherTodayData.value = res;
+    weatherTodayData.value = res.hourly;
   });
 };
 const loadWeatherOfWeek = (location: string) => {
   getWeatherOfWeek(location).then((res) => {
-    weatherWeekData.value = res;
+    weatherWeekData.value = res.daily;
   });
 };
 onMounted(() => {
+  loadUserInfo();
   loadWeatherOfNow(InitialLocation);
   loadWeatherOfToday(InitialLocation);
   loadWeatherOfWeek(InitialLocation);
@@ -220,7 +190,7 @@ onMounted(() => {
     font-size: 32px;
     font-weight: 700;
     color: #050505;
-    margin: 6px;
+    margin: 6px 0;
   }
   .temp-container {
     display: flex;

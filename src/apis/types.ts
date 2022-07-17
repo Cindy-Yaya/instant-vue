@@ -13,6 +13,12 @@ export type InstantType = {
   shares: number;
 };
 
+export type UserType = {
+  userID: string;
+  username: string;
+  avatar: number;
+};
+
 export type ProfileType = {
   mailBox: string;
   phone: string;

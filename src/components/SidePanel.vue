@@ -60,7 +60,7 @@
         </div>
         <div class="line-text">Favorites</div>
       </div>
-      <div class="base-line">
+      <div class="base-line" @click="onWeatherClick">
         <div class="icon-container">
           <img class="line-icon" src="/img/icons/weather.png" />
         </div>
@@ -81,6 +81,9 @@ const props = defineProps({
 });
 const onProfileClick = () => {
   router.push(`/profile/${props.userID}`);
+};
+const onWeatherClick = () => {
+  router.push("/weather");
 };
 </script>
 

@@ -31,9 +31,7 @@ export const getWeatherOfNow = async (location: string) => {
     .catch((err) => ElMessage.error(`Get WeatherOfNow Error: ${err}`));
 };
 
-export const getWeatherOfToday = async (
-  location: string
-): Promise<WeatherHourlyType[]> => {
+export const getWeatherOfToday = async (location: string) => {
   return fetch(
     `https://devapi.qweather.com/v7/weather/24h?key=${key}&location=${location}`
   )
@@ -61,7 +59,7 @@ export const getWeatherOfWeek = async (location: string) => {
     .catch((err) => ElMessage.error(`Get WeatherOfWeek Error: ${err}`));
 };
 
-export const getTodayIndices = async (location: string): Promise<any> => {
+export const getTodayIndices = async (location: string) => {
   return fetch(
     `https://devapi.qweather.com/v7/indices/1d?key=${key}&location=${location}&type=0`
   )
