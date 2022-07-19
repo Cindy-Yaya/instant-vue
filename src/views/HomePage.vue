@@ -1,7 +1,11 @@
 <template>
   <el-container>
     <el-header class="header">
-      <MainHeader active="0" />
+      <MainHeader
+        active="0"
+        :user-i-d="userInfo.userID"
+        :avatar="userInfo.avatar"
+      />
     </el-header>
     <el-container class="content-container">
       <el-aside class="base-container hide-on-ms" width="auto"
@@ -75,7 +79,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { ElMessage } from "element-plus";
 import { getUserProfile } from "@/apis/profile";
 import { InstantType, UserType } from "@/apis/types";
-import { getFriends, getRecentContacts } from "@/apis/relation";
+import { getFriends } from "@/apis/relation";
 const userInfo = reactive<UserType>({
   userID: "",
   username: "",
@@ -125,7 +129,7 @@ const loadInstants = (i: number) => {
   });
 };
 const loadRecentContacts = (i: number) => {
-  getRecentContacts(i).then((res) => {
+  getFriends(i).then((res) => {
     console.log(res);
     if (res?.code === 200) {
       if (i === 0) {

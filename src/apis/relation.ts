@@ -26,6 +26,3 @@ export const removeFollowing = async (followingID: string) => {
 export const getFriends = async (index: number) => {
   return request("relation/friends", "GET", { index: index }, null);
 };
-export const getRecentContacts = async (index: number) => {
-  return request("relation/recent", "GET", { index: index }, null);
-};

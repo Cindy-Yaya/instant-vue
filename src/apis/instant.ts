@@ -48,7 +48,7 @@ export const shareInstant = async (content: string, refOriginID: string) => {
 };
 export const getLikesUserInfo = async (insID: string, index: number) => {
   return request(
-    "instant/getLikesUserInfo",
+    "instant/like/users",
     "GET",
     { insID: insID, index: index },
     null

@@ -46,6 +46,7 @@ const loadMore = () => {
 };
 const loadPotentialFollowings = (i: number) => {
   getPotentialFollowings(i).then((res) => {
+    console.log(res);
     if (res?.code === 200) {
       if (i === 0) {
         potentialFriends.value.length = 0;
@@ -61,7 +62,7 @@ const loadPotentialFollowings = (i: number) => {
           });
         });
       } else {
-        ElMessage.info("No more potential friends");
+        ElMessage.info("No more potential followings");
       }
     } else {
       ElMessage.error(res?.message);

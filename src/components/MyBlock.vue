@@ -11,7 +11,7 @@
       class="input"
       size="large"
       :placeholder="`What's on your mind, ${username}?`"
-      @keyup.enter="onPost"
+      @keyup.enter="onPostClick"
     />
   </div>
 </template>
@@ -28,7 +28,7 @@ const props = defineProps({
   loadInstants: { type: Function, default: () => {} },
 });
 const content = ref("");
-const onPost = () => {
+const onPostClick = () => {
   postInstant(content.value).then((res) => {
     console.log(res);
     if (res?.code === 201) {

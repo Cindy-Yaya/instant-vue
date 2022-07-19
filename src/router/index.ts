@@ -46,6 +46,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "WeatherPage",
     component: () => import("../views/WeatherPage.vue"),
   },
+  { path: "/:pathMatch(.*)*", name: "NotFound", redirect: "/" },
 ];
 
 const router = createRouter({
