@@ -79,10 +79,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.header {
-  height: 54px;
-  background-color: #ffffff;
-}
 .base-container {
   min-width: 270px;
   position: sticky;

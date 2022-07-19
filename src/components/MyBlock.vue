@@ -52,7 +52,7 @@ const onAvatarClick = () => {
   background: white;
   margin: 12px auto;
   padding: 6px 0;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+  box-shadow: var(--box-shadow);
 }
 .avatar {
   padding: 12px;

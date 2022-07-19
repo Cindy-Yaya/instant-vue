@@ -107,7 +107,7 @@ const rules = reactive({
 .form-container {
   padding: 48px 24px 30px 24px;
   border-radius: 12px;
-  background: white;
+  background-color: #fff;
 }
 .form {
   width: 330px;

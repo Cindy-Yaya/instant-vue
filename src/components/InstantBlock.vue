@@ -1,32 +1,103 @@
 <template>
   <div class="instant-block">
     <div class="header-container">
-      <img
-        class="avatar"
-        :src="`/img/icons/avatar-${avatar}.jpg`"
-        alt=""
-        @click="onUserClick(userID)"
-      />
-      <div class="header-text-container">
-        <div class="header-name" @click="onUserClick(userID)">
-          {{ username }}
-        </div>
-        <div class="header-time">
-          {{ time }}
+      <div class="header-left">
+        <img
+          class="avatar"
+          :src="`/img/icons/avatar-${avatar}.jpg`"
+          alt=""
+          @click="onUserClick(userID)"
+        />
+        <div class="header-text-container">
+          <div class="header-name" @click="onUserClick(userID)">
+            {{ username }}
+          </div>
+          <div class="header-time">
+            {{ time }}
+          </div>
         </div>
       </div>
+      <div class="header-right">
+        <template v-if="data.editable"
+          ><el-button type="danger" circle @click="onCancelClick"
+            ><svg viewBox="0 0 320 512" width="15" height="15" fill="#fff">
+              <path
+                d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"
+              />
+            </svg>
+          </el-button>
+          <el-button
+            class="header-btn"
+            type="primary"
+            circle
+            @click="onUpdateConfirmClick"
+            ><svg viewBox="0 0 512 512" width="15" height="15" fill="#fff">
+              <path
+                d="M362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32zM421.7 220.3L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3z"
+              /></svg></el-button
+        ></template>
+        <template v-else
+          ><el-popover placement="bottom-end" trigger="click"
+            ><template #reference
+              ><div class="header-right-icon-container">
+                <svg
+                  viewBox="0 0 448 512"
+                  width="15"
+                  height="15"
+                  fill="#65676B"
+                >
+                  <path
+                    d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z"
+                  />
+                </svg></div
+            ></template>
+            <template v-if="isMySelf"
+              ><div class="menu-container">
+                <svg
+                  viewBox="0 0 512 512"
+                  width="12"
+                  height="12"
+                  fill="#65676B"
+                >
+                  <path
+                    d="M362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32zM421.7 220.3L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3z"
+                  />
+                </svg>
+                Update
+              </div>
+              <div class="menu-container">
+                <svg
+                  viewBox="0 0 448 512"
+                  width="12"
+                  height="12"
+                  fill="#65676B"
+                >
+                  <path
+                    d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM394.8 466.1C393.2 492.3 372.3 512 346.9 512H101.1C75.75 512 54.77 492.3 53.19 466.1L31.1 128H416L394.8 466.1z"
+                  />
+                </svg>
+                Delete
+              </div></template
+            >
+            <div v-else class="menu-container">
+              <svg viewBox="0 0 640 512" width="12" height="12" fill="#65676B">
+                <path
+                  d="M274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM577.9 223.1l47.03-47.03c9.375-9.375 9.375-24.56 0-33.94s-24.56-9.375-33.94 0L544 190.1l-47.03-47.03c-9.375-9.375-24.56-9.375-33.94 0s-9.375 24.56 0 33.94l47.03 47.03l-47.03 47.03c-9.375 9.375-9.375 24.56 0 33.94c9.373 9.373 24.56 9.381 33.94 0L544 257.9l47.03 47.03c9.373 9.373 24.56 9.381 33.94 0c9.375-9.375 9.375-24.56 0-33.94L577.9 223.1z"
+                />
+              </svg>
+              Unfollow {{ username }}
+            </div>
+          </el-popover></template
+        >
+      </div>
     </div>
-    <div class="text-container" @dblclick="data.showEditDialog = true">
-      {{ text }}
-    </div>
-    <el-dialog v-model="data.showEditDialog">
-      <div>Edit Your Instant</div>
-      <el-input
-        v-model="data.editInstant"
-        size="large"
-        @keyup.enter="onUpdateClick"
-      />
-    </el-dialog>
+    <textarea
+      class="text-container"
+      :value="text"
+      :readonly="!data.editable"
+      @input="onTextInput"
+      @dblclick="onTextDoubleClick"
+    />
     <div class="img-container" />
     <div class="info-container">
       <div class="likes-info">
@@ -171,13 +242,14 @@ const props = defineProps({
   attitude: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   shares: { type: Number, default: 0 },
+  isMySelf: { type: Boolean, default: true },
   loadInstants: { type: Function, default: () => {} },
 });
 type DataType = {
   shareInput: string;
   commentInput: string;
   editInstant: string;
-  showEditDialog: boolean;
+  editable: boolean;
   showShareDialog: boolean;
   showComments: boolean;
   comments: string[];
@@ -188,7 +260,7 @@ const data = reactive<DataType>({
   shareInput: "",
   commentInput: "",
   editInstant: "",
-  showEditDialog: false,
+  editable: false,
   showShareDialog: false,
   showComments: false,
   comments: [],
@@ -198,12 +270,24 @@ const data = reactive<DataType>({
 const onUserClick = (userID: string) => {
   router.push(`/profile/${userID}`);
 };
-const onUpdateClick = () => {
+const onTextInput = (event: Event) => {
+  if (data.editable && event.target) {
+    data.editInstant = (event.target as HTMLTextAreaElement).value;
+  }
+};
+const onTextDoubleClick = () => {
+  data.editable = true;
+};
+const onCancelClick = () => {
+  data.editable = false;
+};
+const onUpdateConfirmClick = () => {
   updateInstant(props.insID, data.editInstant).then((res) => {
     if (res?.code === 201) {
       data.editInstant = "";
-      data.showEditDialog = false;
+      data.editable = false;
       props.loadInstants(0);
+      ElMessage.success("Update successfully");
     }
   });
 };
@@ -254,11 +338,18 @@ const onSendCommentClick = () => {
   background: white;
   margin: 12px auto;
   padding: 6px 0;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+  box-shadow: var(--box-shadow);
 }
 .header-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .avatar {
   padding: 12px;
@@ -281,12 +372,32 @@ const onSendCommentClick = () => {
   }
 }
 .header-time {
-  font-size: 14px;
+  font-size: 12px;
+}
+.header-btn {
+  margin-right: 12px;
+}
+.header-right-icon-container {
+  height: 36px;
+  width: 36px;
+  line-height: 40px;
+  margin-right: 12px;
+  border-radius: 50%;
+  &:hover {
+    background-color: var(--hover-background-color);
+  }
+}
+.menu-container {
+  padding: 8px;
+  border-radius: var(--el-border-radius-base);
+  &:hover {
+    background-color: var(--hover-background-color);
+  }
 }
 .text-container {
   margin: 0;
-  padding: 12px;
-  text-align: left;
+  padding: 12px 12px 3px;
+  font-size: 15px;
   word-wrap: break-word;
 }
 .info-container {
@@ -342,7 +453,7 @@ const onSendCommentClick = () => {
   align-items: center;
   border-radius: 6px;
   &:hover {
-    background-color: rgb(0 0 0 / 0.05);
+    background-color: var(--hover-background-color);
   }
 }
 .bg-icon {

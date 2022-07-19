@@ -79,11 +79,12 @@
               :ins-i-d="instant.insID"
               :username="instant.username"
               :avatar="instant.avatar"
-              :time="instant.created.format('MMM D, YYYY')"
+              :time="instant.created.format('MMM D, YYYY [at] H:mm')"
               :text="instant.content"
               :load-instants="loadInstants"
               :likes="instant.likes"
               :shares="instant.shares"
+              :is-my-self="instant.userID === userInfo.userID"
             />
           </el-main>
         </el-container>
@@ -193,11 +194,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.header {
-  height: 54px;
-  background-color: #ffffff;
-  z-index: 1;
-}
 .main-container {
   display: flex;
   flex-direction: column;
@@ -263,7 +259,7 @@ onUnmounted(() => {
   width: 168px;
   object-fit: cover;
   align-self: flex-end;
-  border: solid 6px white;
+  border: solid 6px #fff;
 }
 .info-container {
   display: flex;
@@ -281,7 +277,6 @@ onUnmounted(() => {
   align-self: flex-start;
 }
 .title {
-  color: #050505;
   font-size: 32px;
   font-weight: 600;
 }

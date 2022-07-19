@@ -28,12 +28,13 @@
           :user-i-d="instant.userID"
           :username="instant.username"
           :avatar="instant.avatar"
-          :time="instant.created.format('MMM D, YYYY')"
+          :time="instant.created.format('MMM D, YYYY [at] H:mm')"
           :text="instant.content"
           :load-instants="loadInstants"
           :attitude="instant.attitude"
           :likes="instant.likes"
           :shares="instant.shares"
+          :is-my-self="instant.userID === userInfo.userID"
         /> </el-main
       ><el-aside class="base-container hide-on-xs" width="auto">
         <div class="section-container">
@@ -162,10 +163,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.header {
-  height: 54px;
-  background-color: #ffffff;
-}
 .base-container {
   min-width: 270px;
   position: sticky;
@@ -183,7 +180,7 @@ onUnmounted(() => {
   flex-direction: row;
   align-items: center;
   &:hover {
-    background-color: rgb(0 0 0 / 0.05);
+    background-color: var(--hover-background-color);
   }
 }
 .icon-container {
@@ -199,7 +196,6 @@ onUnmounted(() => {
   width: 36px;
 }
 .line-text {
-  color: #050505;
   font-weight: 500;
   text-indent: 6px;
   font-size: 15px;

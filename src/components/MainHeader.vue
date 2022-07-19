@@ -1,6 +1,8 @@
 <template>
   <div class="nav-container">
-    <div class="inner"><el-input /></div>
+    <div class="inner hide-on-ms">
+      <el-input placeholder="Search Instant" />
+    </div>
     <div class="inner">
       <div
         class="nav-btn-wrapper"
@@ -51,23 +53,33 @@
         </div>
       </div>
     </div>
-    <div class="inner">
-      <el-popover
+    <div class="inner hide-on-xs">
+      <el-popover class="menu-container" trigger="click"
         ><template #reference
-          ><img
-            class="avatar"
-            :src="`/img/icons/avatar-${avatar}.jpg`"
-            alt=""
-            @click="onAvatarClick"
+          ><img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt=""
         /></template>
-        <el-button @click="onLogOutClick">Log Out</el-button></el-popover
+        <div class="item-container" @click="onProfileClick">
+          <span class="item-icon-container">
+            <svg viewBox="0 0 448 512" width="20" height="20">
+              <path
+                d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"
+              /></svg></span
+          ><span class="item-text">View Profile</span>
+        </div>
+        <div class="item-container" @click="onLogOutClick">
+          <span class="item-icon-container">
+            <svg viewBox="0 0 512 512" width="20" height="20">
+              <path
+                d="M96 480h64C177.7 480 192 465.7 192 448S177.7 416 160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64C177.7 96 192 81.67 192 64S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256C0 437 42.98 480 96 480zM504.8 238.5l-144.1-136c-6.975-6.578-17.2-8.375-26-4.594c-8.803 3.797-14.51 12.47-14.51 22.05l-.0918 72l-128-.001c-17.69 0-32.02 14.33-32.02 32v64c0 17.67 14.34 32 32.02 32l128 .001l.0918 71.1c0 9.578 5.707 18.25 14.51 22.05c8.803 3.781 19.03 1.984 26-4.594l144.1-136C514.4 264.4 514.4 247.6 504.8 238.5z"
+              /></svg></span
+          ><span class="item-text">Log Out</span>
+        </div></el-popover
       >
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import router from "@/router";
-import { ref } from "vue";
 const props = defineProps({
   userID: {
     type: String,
@@ -88,7 +100,7 @@ const onFriendsClick = () => {
 const onChatClick = () => {
   router.push({ path: "/chat" });
 };
-const onAvatarClick = () => {
+const onProfileClick = () => {
   router.push(`/profile/${props.userID}`);
 };
 const onLogOutClick = () => {
@@ -126,7 +138,7 @@ const onLogOutClick = () => {
   justify-content: center;
   align-items: center;
   &:hover {
-    background-color: rgb(0 0 0 / 0.05);
+    background-color: var(--hover-background-color);
   }
 }
 .nav-icon {
@@ -138,5 +150,29 @@ const onLogOutClick = () => {
   width: 40px;
   height: 40px;
   object-fit: cover;
+}
+.item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border-radius: var(--el-border-radius-base);
+  &:hover {
+    background-color: var(--hover-background-color);
+  }
+}
+.item-icon-container {
+  width: 36px;
+  height: 36px;
+  line-height: 48px;
+  text-align: center;
+  background-color: #e4e6eb;
+  margin: 8px 12px 8px 4px;
+  border-radius: 50%;
+}
+.item-text {
+  color: var(--el-text-color-primary);
+  font-size: 15px;
+  font-weight: 500;
 }
 </style>

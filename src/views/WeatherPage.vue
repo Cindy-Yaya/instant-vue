@@ -133,10 +133,6 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.header {
-  height: 54px;
-  background-color: #ffffff;
-}
 .baseContainer {
   min-width: 270px;
   position: sticky;
@@ -154,7 +150,7 @@ onMounted(() => {
   flex-direction: row;
   align-items: center;
   &:hover {
-    background-color: rgb(0 0 0 / 0.05);
+    background-color: var(--hover-background-color);
   }
 }
 .iconContainer {
@@ -170,7 +166,6 @@ onMounted(() => {
   width: 36px;
 }
 .lineText {
-  color: #050505;
   font-weight: 500;
   text-indent: 6px;
   font-size: 15px;
@@ -181,7 +176,7 @@ onMounted(() => {
   justify-content: center;
 }
 .weather-container {
-  background: white;
+  background: #fff;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -201,7 +196,6 @@ onMounted(() => {
     .subtitle {
       font-size: 40px;
       font-weight: 700;
-      color: #050505;
       margin: 0 12px;
     }
     .sub-temp-container {
@@ -240,7 +234,6 @@ onMounted(() => {
     }
     .title {
       font-size: 15px;
-      color: #050505;
       font-weight: 400;
     }
     .subtitle {
@@ -280,7 +273,6 @@ onMounted(() => {
       .title {
         font-size: 17px;
         font-weight: 600;
-        color: #050505;
       }
       .subtitle {
         font-size: 17px;
@@ -294,7 +286,6 @@ onMounted(() => {
       .title {
         font-size: 17px;
         font-weight: 500;
-        color: #050505;
         margin: 3px;
       }
       .subtitle {

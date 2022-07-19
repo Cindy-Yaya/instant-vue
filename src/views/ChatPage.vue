@@ -133,10 +133,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.header {
-  height: 54px;
-  background-color: #ffffff;
-}
 .base-container {
   height: calc(100vh - 78px);
   min-width: 270px;
@@ -155,7 +151,7 @@ onUnmounted(() => {
   flex-direction: row;
   align-items: center;
   &:hover {
-    background-color: rgb(0 0 0 / 0.05);
+    background-color: var(--hover-background-color);
   }
 }
 .avatar {

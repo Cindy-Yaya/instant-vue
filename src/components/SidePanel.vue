@@ -14,66 +14,74 @@
     ><el-main>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/find-friends.png" />
+          <img class="line-icon" :src="findFriendsIcon" />
         </div>
         <div class="line-text">Find Friends</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/groups.png" />
+          <img class="line-icon" :src="groupsIcon" />
         </div>
         <div class="line-text">Groups</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/memories.png" />
+          <img class="line-icon" :src="memoriesIcon" />
         </div>
         <div class="line-text">Memories</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/saved.png" />
+          <img class="line-icon" :src="savedIcon" />
         </div>
         <div class="line-text">Saved</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/pages.png" />
+          <img class="line-icon" :src="pagesIcon" />
         </div>
         <div class="line-text">Pages</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/events.png" />
+          <img class="line-icon" :src="eventsIcon" />
         </div>
         <div class="line-text">Events</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/most-recent.png" />
+          <img class="line-icon" :src="mostRecentIcon" />
         </div>
         <div class="line-text">Most Recent</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/favorites.png" />
+          <img class="line-icon" :src="favoritesIcon" />
         </div>
         <div class="line-text">Favorites</div>
       </div>
       <div class="base-line" @click="onWeatherClick">
         <div class="icon-container">
-          <img class="line-icon" src="/img/icons/weather.png" />
+          <img class="line-icon" :src="weatherIcon" />
         </div>
         <div class="line-text">Weather</div>
       </div>
     </el-main>
-    <el-footer>Privacy · Terms · ZYChimne @ 2022</el-footer>
+    <el-footer class="footer">Privacy · Terms · ZYChimne @ 2022</el-footer>
   </el-container>
 </template>
 
 <script setup lang="ts">
 import router from "@/router";
-
+import findFriendsIcon from "@/assets/img/icons/find-friends.png";
+import groupsIcon from "@/assets/img/icons/groups.png";
+import memoriesIcon from "@/assets/img/icons/memories.png";
+import savedIcon from "@/assets/img/icons/saved.png";
+import pagesIcon from "@/assets/img/icons/pages.png";
+import eventsIcon from "@/assets/img/icons/events.png";
+import mostRecentIcon from "@/assets/img/icons/most-recent.png";
+import favoritesIcon from "@/assets/img/icons/favorites.png";
+import weatherIcon from "@/assets/img/icons/weather.png";
 const props = defineProps({
   userID: { type: String, default: "" },
   username: { type: String, default: "" },
@@ -105,7 +113,7 @@ const onWeatherClick = () => {
   flex-direction: row;
   align-items: center;
   &:hover {
-    background-color: rgb(0 0 0 / 0.05);
+    background-color: var(--hover-background-color);
   }
 }
 .icon-container {
@@ -121,9 +129,11 @@ const onWeatherClick = () => {
   width: 36px;
 }
 .line-text {
-  color: #050505;
   font-weight: 500;
   text-indent: 6px;
   font-size: 15px;
+}
+.footer {
+  font-size: 12px;
 }
 </style>
