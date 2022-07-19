@@ -1,6 +1,6 @@
 <template>
   <div class="nav-container">
-    <div class="inner hide-on-ms">
+    <div class="inner aside hide-on-ms">
       <el-input placeholder="Search Instant" />
     </div>
     <div class="inner">
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="inner hide-on-xs">
+    <div class="inner aside hide-on-xs">
       <el-popover class="menu-container" trigger="click"
         ><template #reference
           ><img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt=""
@@ -122,6 +122,10 @@ const onLogOutClick = () => {
   flex-direction: row;
   height: 100%;
   align-items: center;
+}
+.aside {
+  width: 200px;
+  justify-content: flex-end;
 }
 .nav-btn-wrapper {
   width: 120px;
