@@ -1,8 +1,32 @@
 <template>
   <div class="nav-container">
-    <div class="inner aside hide-on-ms">
-      <el-input placeholder="Search Instant" />
-    </div>
+    <el-popover
+      width="200px"
+      placement="bottom-start"
+      :visible="data.query.length > 0"
+    >
+      <template #reference
+        ><div class="inner aside hide-on-ms">
+          <el-input
+            v-model="data.query"
+            placeholder="Search Instant"
+            @input="onQueryInput"
+          /></div
+      ></template>
+      <div
+        v-for="user in data.users"
+        :key="user.userID"
+        class="query-item-container"
+      >
+        <img
+          class="avatar"
+          :src="`/img/icons/avatar-${user.avatar}.jpg`"
+          alt=""
+        />
+        <div class="query-item-text">{{ user.username }}</div>
+        <el-button v-if="user.userID !== userID" circle></el-button>
+      </div>
+    </el-popover>
     <div class="inner">
       <div
         class="nav-btn-wrapper"
@@ -54,7 +78,7 @@
       </div>
     </div>
     <div class="inner aside hide-on-xs">
-      <el-popover class="menu-container" trigger="click"
+      <el-popover width="200px" trigger="click"
         ><template #reference
           ><img class="avatar" :src="`/img/icons/avatar-${avatar}.jpg`" alt=""
         /></template>
@@ -79,7 +103,10 @@
   </div>
 </template>
 <script setup lang="ts">
+import { queryUsers } from "@/apis/profile";
+import { UserType } from "@/apis/types";
 import router from "@/router";
+import { reactive } from "vue";
 const props = defineProps({
   userID: {
     type: String,
@@ -91,6 +118,11 @@ const props = defineProps({
     default: 0,
   },
 });
+type DataType = {
+  users: UserType[];
+  query: string;
+};
+const data = reactive<DataType>({ users: [], query: "" });
 const onHomeClick = () => {
   router.push({ path: "/" });
 };
@@ -106,6 +138,22 @@ const onProfileClick = () => {
 const onLogOutClick = () => {
   localStorage.removeItem("token");
   router.push({ path: "/login" });
+};
+const onQueryInput = (value: string) => {
+  if (value.length > 0) {
+    queryUsers(value, 0).then((res) => {
+      console.log(res);
+      if (res?.code === 200) {
+        data.users = res.data.map((user: any) => {
+          return {
+            userID: user.userID,
+            username: user.username,
+            avatar: user.avatar,
+          };
+        });
+      }
+    });
+  }
 };
 </script>
 <style scoped lang="scss">
@@ -126,6 +174,16 @@ const onLogOutClick = () => {
 .aside {
   width: 200px;
   justify-content: flex-end;
+}
+.query-item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.query-item-text {
+  margin-left: 6px;
+  color: var(--el-text-color-primary);
+  flex: 1;
 }
 .nav-btn-wrapper {
   width: 120px;

@@ -352,7 +352,7 @@ const onSendCommentClick = () => {
   align-items: center;
 }
 .avatar {
-  padding: 12px;
+  margin: 12px;
   height: 48px;
   width: 48px;
   border-radius: 50%;

@@ -302,10 +302,10 @@ onUnmounted(() => {
   background: white;
   border-radius: 6px;
   margin: 12px 0;
-  padding: 12px 0;
+  padding: 12px;
 }
 .aside-title {
-  padding: 6px 0;
+  padding: 6px;
   font-size: 20px;
   font-weight: 700;
 }

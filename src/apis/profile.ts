@@ -10,3 +10,11 @@ export const getUserProfileDetail = async (userID?: string) => {
     null
   );
 };
+export const queryUsers = async (keyword: string, index: number) => {
+  return request(
+    "profile/query",
+    "GET",
+    { keyword: keyword, index: index },
+    null
+  );
+};

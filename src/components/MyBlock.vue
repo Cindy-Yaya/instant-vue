@@ -55,7 +55,7 @@ const onAvatarClick = () => {
   box-shadow: var(--box-shadow);
 }
 .avatar {
-  padding: 12px;
+  margin: 12px;
   border-radius: 50%;
   width: 48px;
   height: 48px;
