@@ -36,3 +36,7 @@ On Home Page
 * Accessibility 100
 * Best Practices 100
 * SEO 100
+
+## About Instant
+
+The inspiration comes from the Instagram. This is a social app like Facebook, including features like post, follow and search. Message is under development.
