@@ -21,7 +21,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Dayjs } from "dayjs";
 const props = defineProps({
   msg: { type: String, default: "" },
   avatar: { type: Number, default: 0 },

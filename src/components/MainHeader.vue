@@ -117,18 +117,18 @@
   </div>
 </template>
 <script setup lang="ts">
-import { queryUsers } from '@/apis/profile';
-import { addFollowing } from '@/apis/relation';
-import { UserType } from '@/apis/types';
-import router from '@/router';
-import { ElMessage } from 'element-plus';
-import { reactive } from 'vue';
+import { queryUsers } from "@/apis/profile";
+import { addFollowing } from "@/apis/relation";
+import { UserType } from "@/apis/types";
+import router from "@/router";
+import { ElMessage } from "element-plus";
+import { reactive } from "vue";
 const props = defineProps({
   userID: {
     type: String,
-    default: '',
+    default: "",
   },
-  active: { type: String, default: '0' },
+  active: { type: String, default: "0" },
   avatar: {
     type: Number,
     default: 0,
@@ -144,22 +144,22 @@ type DataType = {
   users: QueryItemType[];
   query: string;
 };
-const data = reactive<DataType>({ users: [], query: '' });
+const data = reactive<DataType>({ users: [], query: "" });
 const onHomeClick = () => {
-  router.push({ path: '/' });
+  router.push({ path: "/" });
 };
 const onFriendsClick = () => {
-  router.push({ path: '/following' });
+  router.push({ path: "/following" });
 };
 const onChatClick = () => {
-  router.push({ path: '/chat' });
+  router.push({ path: "/chat" });
 };
 const onProfileClick = () => {
   router.push(`/profile/${props.userID}`);
 };
 const onLogOutClick = () => {
-  localStorage.removeItem('token');
-  router.push({ path: '/login' });
+  localStorage.removeItem("token");
+  router.push({ path: "/login" });
 };
 const onQueryInput = (value: string) => {
   const trimValue = value.trim();

@@ -13,6 +13,19 @@ export type InstantType = {
   shares: number;
 };
 
+export type CommentType = {
+  commentID: string;
+  created: Dayjs;
+  lastModified: Dayjs;
+  insID: string;
+  replyToID: string;
+  userID: string;
+  username: string;
+  avatar: number;
+  content: string;
+  direct: boolean;
+};
+
 export type UserType = {
   userID: string;
   username: string;
