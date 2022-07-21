@@ -161,7 +161,7 @@
         </div>
       </div>
     </el-main>
-    <el-footer>ZYChimne @ 2022</el-footer>
+    <el-footer class="footer">ZYChimne @ 2022</el-footer>
   </el-container>
 </template>
 

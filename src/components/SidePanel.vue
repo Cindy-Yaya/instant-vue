@@ -107,7 +107,7 @@ const onWeatherClick = () => {
 }
 .base-line {
   height: 54px;
-  margin: 0 6px;
+  padding: 0 6px;
   border-radius: 6px;
   display: flex;
   flex-direction: row;

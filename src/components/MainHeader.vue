@@ -17,6 +17,7 @@
         v-for="user in data.users"
         :key="user.userID"
         class="query-item-container"
+        @click="onQueryItemClick(user)"
       >
         <img
           class="avatar"
@@ -24,7 +25,20 @@
           alt=""
         />
         <div class="query-item-text">{{ user.username }}</div>
-        <el-button v-if="user.userID !== userID" circle></el-button>
+        <template v-if="user.userID !== userID"
+          ><div v-if="user.isFollowing" class="query-icon-container">
+            <svg viewBox="0 0 448 512" width="12" height="12">
+              <path
+                d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"
+              />
+            </svg>
+          </div>
+          <el-button v-else circle @click="onAddFollowing($event, user)">
+            <svg viewBox="0 0 512 512" width="12" height="12">
+              <path
+                d="M447 56.25C443.5 42 430.7 31.1 416 31.1H96c-14.69 0-27.47 10-31.03 24.25L3.715 304.9C1.247 314.9 0 325.2 0 335.5v96.47c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48v-96.47c0-10.32-1.247-20.6-3.715-30.61L447 56.25zM352 352H160L128 288H72.97L121 96h270l48.03 192H384L352 352z"
+              /></svg></el-button
+        ></template>
       </div>
     </el-popover>
     <div class="inner">
@@ -103,45 +117,54 @@
   </div>
 </template>
 <script setup lang="ts">
-import { queryUsers } from "@/apis/profile";
-import { UserType } from "@/apis/types";
-import router from "@/router";
-import { reactive } from "vue";
+import { queryUsers } from '@/apis/profile';
+import { addFollowing } from '@/apis/relation';
+import { UserType } from '@/apis/types';
+import router from '@/router';
+import { ElMessage } from 'element-plus';
+import { reactive } from 'vue';
 const props = defineProps({
   userID: {
     type: String,
-    default: "",
+    default: '',
   },
-  active: { type: String, default: "0" },
+  active: { type: String, default: '0' },
   avatar: {
     type: Number,
     default: 0,
   },
 });
+type QueryItemType = {
+  userID: string;
+  username: string;
+  avatar: number;
+  isFollowing: boolean;
+};
 type DataType = {
-  users: UserType[];
+  users: QueryItemType[];
   query: string;
 };
-const data = reactive<DataType>({ users: [], query: "" });
+const data = reactive<DataType>({ users: [], query: '' });
 const onHomeClick = () => {
-  router.push({ path: "/" });
+  router.push({ path: '/' });
 };
 const onFriendsClick = () => {
-  router.push({ path: "/following" });
+  router.push({ path: '/following' });
 };
 const onChatClick = () => {
-  router.push({ path: "/chat" });
+  router.push({ path: '/chat' });
 };
 const onProfileClick = () => {
   router.push(`/profile/${props.userID}`);
 };
 const onLogOutClick = () => {
-  localStorage.removeItem("token");
-  router.push({ path: "/login" });
+  localStorage.removeItem('token');
+  router.push({ path: '/login' });
 };
 const onQueryInput = (value: string) => {
-  if (value.length > 0) {
-    queryUsers(value, 0).then((res) => {
+  const trimValue = value.trim();
+  if (trimValue.length > 0) {
+    queryUsers(trimValue, 0).then((res) => {
       console.log(res);
       if (res?.code === 200) {
         data.users = res.data.map((user: any) => {
@@ -149,11 +172,24 @@ const onQueryInput = (value: string) => {
             userID: user.userID,
             username: user.username,
             avatar: user.avatar,
+            isFollowing: user.isFollowing,
           };
         });
       }
     });
   }
+};
+const onQueryItemClick = (user: QueryItemType) => {
+  router.push(`/profile/${user.userID}`);
+};
+const onAddFollowing = (event: Event, user: QueryItemType) => {
+  event.stopPropagation();
+  addFollowing(user.userID).then((res) => {
+    console.log(res);
+    if (res?.code === 202) {
+      ElMessage.success(`Successfully followed ${user.username}`);
+    }
+  });
 };
 </script>
 <style scoped lang="scss">
@@ -179,11 +215,25 @@ const onQueryInput = (value: string) => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 6px 3px;
+  border-radius: var(--el-border-radius-base);
+  &:hover {
+    background-color: var(--hover-background-color);
+  }
 }
 .query-item-text {
   margin-left: 6px;
   color: var(--el-text-color-primary);
   flex: 1;
+}
+.query-icon-container {
+  background-color: var(--el-color-success);
+  fill: #fff;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  line-height: 24px;
+  border-radius: 50%;
 }
 .nav-btn-wrapper {
   width: 120px;
