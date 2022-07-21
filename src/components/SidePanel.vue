@@ -7,6 +7,7 @@
             class="line-icon"
             :src="`/img/icons/avatar-${avatar}.jpg`"
             style="border-radius: 50%"
+            alt=""
           />
         </div>
         <div class="line-text">{{ username }}</div>
@@ -14,55 +15,55 @@
     ><el-main>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="findFriendsIcon" />
+          <img class="line-icon" :src="findFriendsIcon" alt="" />
         </div>
         <div class="line-text">Find Friends</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="groupsIcon" />
+          <img class="line-icon" :src="groupsIcon" alt="" />
         </div>
         <div class="line-text">Groups</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="memoriesIcon" />
+          <img class="line-icon" :src="memoriesIcon" alt="" />
         </div>
         <div class="line-text">Memories</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="savedIcon" />
+          <img class="line-icon" :src="savedIcon" alt="" />
         </div>
         <div class="line-text">Saved</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="pagesIcon" />
+          <img class="line-icon" :src="pagesIcon" alt="" />
         </div>
         <div class="line-text">Pages</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="eventsIcon" />
+          <img class="line-icon" :src="eventsIcon" alt="" />
         </div>
         <div class="line-text">Events</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="mostRecentIcon" />
+          <img class="line-icon" :src="mostRecentIcon" alt="" />
         </div>
         <div class="line-text">Most Recent</div>
       </div>
       <div class="base-line">
         <div class="icon-container">
-          <img class="line-icon" :src="favoritesIcon" />
+          <img class="line-icon" :src="favoritesIcon" alt="" />
         </div>
         <div class="line-text">Favorites</div>
       </div>
       <div class="base-line" @click="onWeatherClick">
         <div class="icon-container">
-          <img class="line-icon" :src="weatherIcon" />
+          <img class="line-icon" :src="weatherIcon" alt="" />
         </div>
         <div class="line-text">Weather</div>
       </div>

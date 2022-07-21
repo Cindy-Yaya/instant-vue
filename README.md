@@ -1,16 +1,38 @@
-# Vue 3 + TypeScript + Vite 3
+# Instant-Vue
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is the Front-end Project of Instant, built with Vue 3, TypeScript, Vite 3 and Element UI Plus.
 
-## Recommended IDE Setup
+## Features
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+* Extremely Fast. Achieves 98 Performance Score on Home Page.
+* Responsive Web Design, Adaptive to Different Screen Sizes and Orientation.
+* Router Code Split and Assets Dynamic Import.
+* Interactivity is Built on Top of Vue Reactivity System.
+* Custom Request Handler Built on Top of Fetch.
+* Strict ESLint and StyleLint, Following Vue and TypeScript Best Practices.
 
-## Type Support For `.vue` Imports in TS
+## Setup
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+```bash
+yarn dev # start dev server
+yarn build # build webpage
+yarn eslint # eslint and fix code
+yarn stylelint # stylelint and fix code
+yarn prettier # format code
+yarn serve # serve built webpage from ./dist
+```
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+## Lighthouse 
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+On Home Page  
+
+* Performance 98
+  * First Contentful Paint 0.5s
+  * Time to Interactive 0.6s
+  * Speed Index 0.5s
+  * Total Blocking Time 10ms
+  * Largest Contentful Paint 1.1s
+  * Cumulative Layout Shift 0.003
+* Accessibility 100
+* Best Practices 100
+* SEO 100

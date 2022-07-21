@@ -61,7 +61,7 @@
     <div class="info-container">
       <div class="likes-info">
         <div class="icon-container">
-          <img class="icon-img" src="/img/icons/likes.svg" />
+          <img class="icon-img" :src="likesIcon" alt="" />
         </div>
         <el-tooltip placement="bottom" effect="dark">
           <template #content
@@ -225,6 +225,7 @@ import { CommentType } from "@/apis/types";
 import router from "@/router";
 import { ElMessage } from "element-plus";
 import { onMounted, reactive } from "vue";
+import likesIcon from "@/assets/img/icons/likes.svg";
 const props = defineProps({
   insID: { type: String, default: "" },
   userID: { type: String, default: "" },

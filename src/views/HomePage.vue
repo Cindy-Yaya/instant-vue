@@ -47,6 +47,7 @@
             <img
               class="line-icon"
               :src="`/img/icons/avatar-${contact.avatar}.jpg`"
+              alt=""
               style="border-radius: 10%"
             />
             <div class="line-text">{{ contact.username }}</div>
@@ -58,6 +59,7 @@
             <img
               class="line-icon"
               src="/img/icons/avatar-0.jpg"
+              alt=""
               style="border-radius: 10%"
             />
             <div class="line-text">Evan and Yaya</div>
