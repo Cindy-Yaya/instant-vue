@@ -2,6 +2,7 @@
 
 This is the Front-end Project of Instant, built with Vue 3, TypeScript, Vite 3 and Element UI Plus.
 
+
 ## Features
 
 * Extremely Fast. Achieves 98 Performance Score on Home Page.
